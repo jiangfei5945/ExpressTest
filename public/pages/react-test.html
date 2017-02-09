@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="/javascripts/vendor/react.js"></script>
+    <script src="/javascripts/vendor/react-dom.js"></script>
+    <script src="/javascripts/vendor/babel-core.5.8.23.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    /*ReactDOM.render(
+    <h1>Hello World!</h1>,
+     document.getElementById('example')
+    );*/
+
+    /*var GenericWrapper = React.createClass({
+        componentDidMount: function() {
+            console.log(Array.isArray(this.props.children)); // => true
+        },
+
+        render: function() {
+            return <div/>;
+        }
+    });
+
+    ReactDOM.render(
+    <GenericWrapper><span/><span/><span/></GenericWrapper>,
+            document.getElementById('example')
+    );*/
+
+    /*var HelloWorld = React.createClass({
+         render:function(){
+             return (
+                 <p>
+                     Hello，<input type="text" placeholder="Your name here" />!
+                     It is {this.props.date.toTimeString()}
+                 </p>
+             );
+         }
+     });
+
+     setInterval(function(){
+         ReactDOM.render(
+             <HelloWorld date={new Date()} />,
+             document.getElementById('example')
+         );
+     },500);*/
+
+    /*var HelloWorld = React.createClass({
+        render:function(){
+            console.log(this.props);
+            return (
+                    <p>
+                            Hello，<input type="text" placeholder="Your name here" />!
+                            It is {this.props.date.toTimeString()}
+                    </p>
+            );
+        }
+    });
+
+    var p={a:1,b:2};
+    setInterval(function(){
+        ReactDOM.render(
+                <HelloWorld {...p} />,
+                document.getElementById('example')
+        );
+    },500);*/
+
+
+    /*var LinkButton = React.createClass({
+        getInitialState:function(){
+            return {liked:false};
+        },
+        hanndleClick:function(event){
+            console.log(event);
+            this.setState({liked:!this.state.liked});
+        },
+        render:function(){
+            var text = this.state.liked ? 'like' : 'haven\'t liked';
+            return (
+                    <p onClick={this.hanndleClick}>
+                        You {text} this. Click to toggle.
+                    </p>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <LinkButton />,
+        document.getElementById('example')
+    );*/
+
+    var App = React.createClass({
+            getInitialState: function() {
+        return {userInput: ''};
+    },
+    handleChange: function(e) {
+        this.setState({userInput: e.target.value});
+    },
+    clearAndFocusInput: function(event) {
+        // Clear the input
+        console.log(this.refs.theInput.value);
+        this.setState({userInput: ''}, function() {
+            // This code executes after the component is re-rendered
+            this.refs.theInput.focus();// Boom! Focused!
+        });
+    },
+    render: function() {
+        return (
+                 <div>
+                            <div onClick={this.clearAndFocusInput}>
+                                Click to Focus and Reset
+                            </div>
+                            <input
+                            ref="theInput"
+                            value={this.state.userInput}
+                            onChange={this.handleChange}
+                            />
+                </div>
+                );
+    }
+    });
+    ReactDOM.render(
+    <App />,
+            document.getElementById('example')
+    );
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "ExpressTest",
+  "description": "",
+  "main": "",
+  "authors": [
+    "jiangfei <jiangfei@letv.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.2.0"
+  }
+}

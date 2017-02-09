@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            .tooltip-wrap{
+                height: 800px;
+                width: 900px;
+            }
+            .btn-open-tooltip{
+                width: 60px;
+                height: 20px;
+                margin-left: 200px;
+                margin-top: 500px;
+            }
+            .tooltip{
+                position: absolute;
+                z-index: 1050;
+                background-color: #000;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tooltip-wrap">
+            <button class="btn-open-tooltip">tooltip</button>
+        </div>
+        <script type="text/javascript">
+            (function(global) {
+                var btnOpenTooltip = getElByClass('btn-open-tooltip'),
+                        divTooltip;
+
+                function getElByClass(className) {
+                    return global.document.getElementsByClassName(className)[0];
+                }
+
+                function getPosition(element){
+                    var result;
+                    
+                    return result;
+                }
+
+                btnOpenTooltip.addEventListener('mouseout', function (e) {
+                    if (divTooltip) {
+                        divTooltip.parentNode.removeChild(divTooltip);
+                    }
+                });
+                btnOpenTooltip.addEventListener('mouseover', function (e) {
+                    if (!divTooltip) {
+                        divTooltip = global.document.createElement('div');
+                        divTooltip.setAttribute('class', 'tooltip');
+                        divTooltip.innerHTML='<span>tooltip content</span>';
+                    }
+                    global.document.body.appendChild(divTooltip);
+                });
+            }(window));
+        </script>
+    </body>
+</html>

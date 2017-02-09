@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button id="btnRedirect">跳转</button>
+<script type="application/javascript" src="//cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+<script type="application/javascript">
+    $('#btnRedirect').on('click', function (e) {
+        $.get('/api/api-redirect-test').then(function (data) {
+            return data;
+        });
+    });
+
+</script>
+</body>
+</html>

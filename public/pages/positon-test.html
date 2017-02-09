@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .content-container{
+            box-sizing: border-box;
+            margin: 200px 0 0 400px;
+            border: 1px solid #000000;
+            width: 200px;
+            height: 500px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <span class="text">
+            我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，
+            我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，我的天呢，
+        </span>
+    </div>
+    <script type="text/javascript">
+        (function(global) {
+            var divContentContainerEl = global.document.getElementsByClassName('content-container')[0];
+            console.log(['clientHeight:' + divContentContainerEl.clientHeight, 'scrollHeight:' + divContentContainerEl.scrollHeight].join('\n'));
+            divContentContainerEl.style.height='50px';
+            console.log(['clientHeight:' + divContentContainerEl.clientHeight, 'scrollHeight:' + divContentContainerEl.scrollHeight].join('\n'));
+            divContentContainerEl.addEventListener('scroll',function(e){
+                console.log(['scrollTop:' + e.target.scrollTop].join('\n'));
+            });
+        }(window));
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">
+            .btn-open-modal,.btn-close-modal{
+                width: 60px;
+                height: 20px;
+            }
+            .modal{
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 1050;
+            }
+            .modal-dialog{
+                position:relative;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 30px;
+                height: 300px;
+                width: 300px;
+                border: 1px black solid;
+                background-color: #fff;
+                border-radius: 6px;
+            }
+            .modal-backdrop{
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 1040;
+                background-color: #000;
+                opacity: 0.5;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button class="btn-open-modal">open modal</button>
+        </div>
+        <div class="modal" style="display: none;">
+            <div class="modal-dialog">
+                <button class="btn-close-modal">close modal</button>
+                <h1>test modal</h1>
+            </div>
+        </div>
+        <script type="text/javascript">
+            (function(global) {
+                var btnOpenModal = getElByClass('btn-open-modal'),
+                        btnCloseModal = getElByClass('btn-close-modal'),
+                        divModal = getElByClass('modal'),
+                        divBackdrop;
+
+                function getElByClass(className) {
+                    return global.document.getElementsByClassName(className)[0];
+                }
+
+                btnOpenModal.addEventListener('click', function (e) {
+                    if (divModal.style.display === 'none') {
+                        divModal.style.display = 'block';
+                        if (!divBackdrop) {
+                            divBackdrop = global.document.createElement('div');
+                            divBackdrop.setAttribute('class', 'modal-backdrop');
+                        }
+                        global.document.body.appendChild(divBackdrop);
+                    }
+                });
+                btnCloseModal.addEventListener('click', function (e) {
+                    if (divModal.style.display === 'block') {
+                        divModal.style.display = 'none';
+                        if (divBackdrop) {
+                            divBackdrop.parentNode.removeChild(divBackdrop);
+                        }
+                    }
+                });
+            }(window));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button onclick="pushStatePage1()">pushStatePage1</button>
+<button onclick="pushStatePage2()">pushStatePage2</button>
+<button onclick="replaceStatePage3()">replaceStatePage3</button>
+<button onclick="back()">back</button>
+<button onclick="forward2()">forward2</button>
+<script type="application/javascript">
+    window.onpopstate = function(event) {
+        console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    };
+
+    function pushStatePage1(){
+        console.log('history.length:'+window.history.length);
+        history.pushState({page: 1}, "title 1", "page=1");//添加并激活一个历史记录条目 http://example.com/example.html?page=1,条目索引为1
+        console.log('history.length:'+window.history.length);
+        history.pushState({page: 3}, "title 3", "page=3");
+        console.log('history.length:'+window.history.length);
+        history.replaceState({page: 1}, "title 1", "page=1");
+        console.log('history.length:'+window.history.length);
+    }
+
+    function pushStatePage2(){
+        console.log('history.length:'+window.history.length);
+        history.pushState({page: 2}, "title 2", "page=2");//添加并激活一个历史记录条目 http://example.com/example.html?page=2,条目索引为2
+        console.log('history.length:'+window.history.length);
+    }
+
+    function replaceStatePage3(){
+        console.log('history.length:'+window.history.length);
+        history.replaceState({page: 3}, "title 3", "page=3"); //修改当前激活的历史记录条目 http://ex..?page=2 变为 http://ex..?page=3,条目索引为2
+        console.log('history.length:'+window.history.length);
+    }
+
+    function back(){
+        history.back();
+    }
+
+    function forward2(){
+        history.go(2);
+    }
+</script>
+</body>
+</html>
