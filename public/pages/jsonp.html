@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button id="btnRedirect">跨域</button>
+<script type="application/javascript" src="//cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+<script type="application/javascript">
+    $('#btnRedirect').on('click', function (e) {
+        $.ajax({
+             type: "get",
+             url: "http://localhost:3000/api/api-jsonp",
+             dataType: "jsonp",
+             success: function(json){
+                 return json;
+             }
+         });
+    });
+
+</script>
+</body>
+</html>

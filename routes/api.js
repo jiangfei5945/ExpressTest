@@ -45,4 +45,9 @@ router.get('/api-cors', function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.send({result: 1, msg: 'api-cors'});
 });
+
+//JSONP
+router.get('/api-jsonp', function (req, res, next) {
+  res.jsonp({ result: 1, msg: 'api-jsonp' });
+});
 module.exports = router;
