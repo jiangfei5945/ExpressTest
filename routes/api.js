@@ -50,4 +50,9 @@ router.get('/api-cors', function(req, res, next) {
 router.get('/api-jsonp', function (req, res, next) {
   res.jsonp({ result: 1, msg: 'api-jsonp' });
 });
+
+//Employee
+router.get('/employees', function (req, res, next) {
+  res.send({ result: 1, data: [{name:'test1'},{name:'test2'}] });
+});
 module.exports = router;
