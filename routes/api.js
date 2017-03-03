@@ -55,4 +55,8 @@ router.get('/api-jsonp', function (req, res, next) {
 router.get('/employees', function (req, res, next) {
   res.send({ result: 1, data: [{name:'test1'},{name:'test2'}] });
 });
+
+router.post('/employee/add', function (req, res, next) {
+  res.send({ result: 1, data: req.body.employee });
+});
 module.exports = router;
