@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
 </head>
+
 <body>
+    <!--<script type="application/javascript" src="/javascripts/promise-test.js"></script>-->
+    <script type="application/javascript" src="/javascripts/vendor/jquery.js"></script>
+    <script type="application/javascript">
+        // var promise = $.get('/api/data1');
+        // promise
+        //     .then(function (data) {
+        //         console.log(data);
+        //         return data;
+        //     })
+        //     .then(function (data) {
+        //         console.log(data);
+        //         var defer = $.Deferred();
+        //         setTimeout(function () {
+        //             defer.resolve("1");
+        //         }, 2000);
+        //         return defer.promise()
+        //             .then(function (data) {
+        //                 console.log(2);
+        //                 return data;
+        //             });
 
-<!--<script type="application/javascript" src="/javascripts/promise-test.js"></script>-->
-<script type="application/javascript" src="//cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
-<script type="application/javascript">
-    $.get('/api/data1', function (data) {
-        console.log(data);
-        return data;
-    }).then(function (data) {
-        console.log(data);
-        var defer = $.Deferred();
-        setTimeout(function(){
-            defer.resolve("1");
-        },2000);
+        //         //       return $.get('/api/data2').then(function(data){
+        //         //           console.log(data);
+        //         //       });
+        //     }).then(function (data) {
+        //         console.log(data);
+        //     });
+    var promise = (function () {
+        var defer = $.Deferred(); 
+        setTimeout(function () { 
+            defer.resolve("1"); 
+        }, 2000); 
         return defer.promise();
-
-//       return $.get('/api/data2').then(function(data){
-//           console.log(data);
-//       });
+    } ());
+    promise.then(function (data) {
+        console.log(data);
+        var defer = $.Deferred(); 
+        setTimeout(function () { 
+            defer.resolve("2:"+data); 
+        }, 2000); 
+        return defer.promise();
     }).then(function (data) {
         console.log(data);
     });
-</script>
+    </script>
 </body>
+
 </html>
