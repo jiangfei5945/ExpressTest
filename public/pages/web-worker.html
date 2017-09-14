@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"  />
+    <title>Test threads fibonacci</title>
+  </head>
+  <body>
+
+  <div id="result"></div>
+
+  <script language="javascript">
+
+    var worker = new Worker("../javascripts/work.js");
+
+    worker.onmessage = function(event) {
+      document.getElementById("result").textContent = event.data;
+    };
+
+    worker.onerror = function(error) {
+      throw error;
+    };
+
+    worker.postMessage(5);
+
+  </script>
+  </body>
+</html>

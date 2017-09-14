@@ -2,6 +2,7 @@
   "name": "ExpressTest",
   "version": "0.0.0",
   "private": true,
+  "author": "jiangfei5945",
   "scripts": {
     "start": "node ./bin/www"
   },
