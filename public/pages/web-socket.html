@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Test threads fibonacci</title>
+</head>
+
+<body>
+  <input type="text" id="inputText" />
+  <button id="btnTest">test</button>
+  <button id="btnClose">close</button>
+  <script language="javascript">
+    var inputTextEl = document.getElementById("inputText"),
+        btnTestEl = document.getElementById("btnTest"),
+        btnCloseEl = document.getElementById("btnClose");
+
+    var ws = new WebSocket("wss://echo.websocket.org"); 
+    
+    ws.onopen = function (evt) {
+      console.log("Connection open ...");
+    };
+
+    ws.onmessage = function (evt) {
+      console.log("Received Message: " + evt.data);
+    };
+
+    ws.onclose = function (evt) {
+      console.log("Connection closed.");
+    };
+
+    btnTestEl.addEventListener("click",function(e){
+      if(ws.readyState === WebSocket.OPEN){
+        ws.send(inputTextEl.value);
+      } else {
+        console.log("Connection hasn't open.");
+      }
+    });
+
+    btnCloseEl.addEventListener("click",function(e){
+      ws.close();
+    });
+  </script>
+</body>
+
+</html>
