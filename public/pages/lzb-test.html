@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>sdk4.0Demo 点播</title>
@@ -11,50 +12,24 @@
         }
     </style>
 </head>
+
 <body>
-<!-- 直播html代码-->
-<div id="player1" style="width:300;height:200px;">
-</div>
-<div id="player2" style="width:300;height:200px;">
-</div>
-<div id="player3" style="width:300;height:200px;">
-</div>
-<script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script>
-<script>
-    var playerCallback1 =function(type,data){
-        if(type==='videoStart' || type==='videoResume'){
-            player2.sdk.pauseVideo();
-            player3.sdk.pauseVideo();
-        }
-    };
+    <!-- 直播html代码-->
+    <div id="player1"></div>
+    <script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script>
+    <script>
+        var playerConf1 = {
+            uu: "cfd9191aeb",
+            vu: "79ff602f42",
+            type: "swf",
+            width:"500",
+            height:"300",
+            seekRange:""
+        };
 
-
-    var playerCallback2 =function(type,data){
-        if(type==='videoStart' || type==='videoResume'){
-            player1.sdk.pauseVideo();
-            player3.sdk.pauseVideo();
-        }
-    };
-
-
-    var playerCallback3 =function(type,data){
-        if(type==='videoStart' || type==='videoResume'){
-            player1.sdk.pauseVideo();
-            player2.sdk.pauseVideo();
-        }
-    };
-    var playerConf1 = { uu: "cfd9191aeb", vu: "79ff602f42", callbackJs: "playerCallback1",type:"h5" };
-    var playerConf2 = { uu: "cfd9191aeb", vu: "79ff602f42", callbackJs: "playerCallback2" };
-    var playerConf3 = { uu: "cfd9191aeb", vu: "79ff602f42", callbackJs: "playerCallback3" };
-
-    var player1 = new CloudVodPlayer();
-    player1.init(playerConf1,"player1");
-
-    var player2 = new CloudVodPlayer();
-    player2.init(playerConf2,"player2");
-
-    var player3 = new CloudVodPlayer();
-    player3.init(playerConf3,"player3");
-</script>
+        var player1 = new CloudVodPlayer();
+        player1.init(playerConf1, "player1");
+    </script>
 </body>
+
 </html>
