@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            position: relative;
+        }
+        @keyframes mycolor {
+            0% {background: #000000;}
+            30% {background: #d81630;}
+            60% {background: #3b13cc;}
+            100% {background: #1fc52d;}
+        }
+        .div-animation {
+            position: absolute;
+            top:200px;
+            left:200px;
+            height: 200px;
+            width: 200px;
+            background: #555555;
+            color: #ffffff;
+        }
+
+        .div-animation:hover {
+            animation:mycolor 5s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div-animation">
+        this is a div
+    </div>
+</body>
+
+</html>
