@@ -1,3 +1,4 @@
 node_modules/
 bower_components/
 .idea/
+public/pages/cdn-upload.html
