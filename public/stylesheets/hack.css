@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Server: nginx
 Date: Fri, 09 Feb 2018 03:16:04 GMT
 Content-Type: text/css
-Content-Length: 172777
+Content-Length: 173777
 Connection: keep-alive
 Last-Modified: Fri, 24 Feb 2017 09:16:52 GMT
 ETag: "58affa04-24141"
@@ -9974,7 +9974,39 @@ only screen and (min-device-pixel-ratio:1.5) {
   width:33.3%;
 }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+.space-data-type {
+  padding-left: 20px;
+}
+
+.space-data-type a{
+  font-size: 14px;
+  line-height: 36px;
+  margin-right: 6px;
+}
+
+.space-used-sum {
+  margin: 20px 0 30px 20px;
+  color: #73737c;
+}
+
+.space-used-sum .used-sum-num {
+  color: #ff3555;
+  font-size: 18px;
+}
+
+tbody#videoSpaceList tr {
+  color: #33333c;
+}
+#divSpaceList table thead th {
+  border-top: 1px solid #ededf1;
+}
+#divSpaceList table thead th:first-child {
+  padding-left: 20px;
+}
+tbody#videoSpaceList tr td:first-child {
+  padding: 10px 0 10px 20px;
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

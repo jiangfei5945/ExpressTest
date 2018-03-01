@@ -1411,50 +1411,69 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
                 </div>
                 <!-- 日期图表模块/s -->
                 <div class="live-overview-con overview-layout bt-line clearfix ">
-                    <div class="time-charge clearfix mt-30" dataType="space">
-                        <a id="linkSpaceChart" href="javascript:void(0);">图表</a>
-                        <a id="linkSpaceTable" href="javascript:void(0);">列表</a>
-                        <a id="linkSpaceDownload" href="javascript:void(0);">下载</a>
-                        <label class="pull-right error mt-20 hide" id="spaceDateError">
-                            查询时间跨度最大为31天
-                        </label>
-                        <div class="date-con ml-10 pull-right">
-                            <div class="pull-left ladate-box">日期<input readonly="readonly" class="laydate-icon laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;" id="dataSpaceBegin" value=""> <svg class="icon icon-rili size-18"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use></svg></div>
-                            <div class="pull-left ladate-box">到<input readonly="readonly" class="laydate-icon  laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;" id="dateSpaceEnd" value=""><svg class="icon icon-rili size-18"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use></svg></div>
-                        </div>
-                        <a href="javascript:void(0)" class="pull-right mt-10 mr-10 spaceData">最近30天</a>
-                        <a href="javascript:void(0)" class="pull-right mt-10 ml-20 mr-10 active spaceData">最近7天</a>
-                    </div>
-                    <p style="padding:10px;">2017年1月1日 23:12:10 到 2017年1月4日 23:12:10 空间使用：<span id="spanSpaceUsedSum">500M</span></p>
+					<div class="clearfix mt-10">
+						<div class="space-data-type pull-left">
+							<a id="linkSpaceChart" href="javascript:void(0);">图表</a>
+							<a id="linkSpaceTable" href="javascript:void(0);">列表</a>
+							<a id="linkSpaceDownload" href="javascript:void(0);">下载</a>
+						</div>
+						<div class="time-charge pull-right" dataType="space">
+							<label class="error mt-20 hide" id="spaceDateError">
+								查询时间跨度最大为31天
+							</label>
+							<a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active spaceData">最近7天</a>
+							<a href="javascript:void(0)" class="pull-left mt-10 mr-10 spaceData">最近30天</a>
+							<div class="date-con ml-10 pull-left">
+								<div class="pull-left ladate-box">日期
+									<input readonly="readonly" class="laydate-icon laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;"
+									 id="dataSpaceBegin" value="">
+									<svg class="icon icon-rili size-18">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use>
+									</svg>
+								</div>
+								<div class="pull-left ladate-box">到
+									<input readonly="readonly" class="laydate-icon  laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;"
+									 id="dateSpaceEnd" value="">
+									<svg class="icon icon-rili size-18">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <p class="space-used-sum">2017年1月1日 23:12:10 到 2017年1月4日 23:12:10 空间使用：<span class="used-sum-num">500M</span></p>
                     <!-- 图表/s -->
                     <div class="live-charge" id="overview-chart-02">
                     </div>
-                    <div class="video-datas" id="divTableSpace" style="display:none;">
+                    <div class="video-datas" id="divSpaceList" style="display:none;">
                       <table class="table-style-01">
                         <thead>
                           <tr>
-                            <th>时长</th>
+							<th>视频ID/视频名称</th>
+							<th>空间</th>
                             <th>上传时间</th>
-                            <th>发布时间</th>
+                            <th>视频来源</th>
                           </tr>
                         </thead>
-                        <tbody id="videoManagementList">
-                          <tr dataid="47421560" data-status="1">
-                            <td>
-                              <div class="video-item clearfix">
-                                <dl class="video-detail">
-                                  <dd>视频ID：47421560</dd>
-                                  <dd>视频ID：47421560</dd>
-                                  <dd>视频VU：59ad49a0c2</dd>
-                                </dl>
-                              </div>
-                            </td>
-                            <td>
-                              <span class="color-33333c videoDuration">00:32:20</span>
-                            </td>
-                            <td>无</td>
+                        <tbody id="videoSpaceList">
+                          <tr>
+							<td>
+								<div>视频ID：47421560</div>
+								<div>视频ID：47421560</div>
+								<div>视频VU：59ad49a0c2</div>
+							</td>
+							<td>208M</td>
+							<td>点播上传</td>
+							<td>点播上传</td>
                           </tr>
-                        </tbody>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="4">
+									<div class="pull-right" id="spaceListLePage"></div>
+								</td>
+							</tr>
+						</tfoot>
                       </table>
                     </div>
                     <p class="noData hide" id="spaceNodata">暂无数据</p>
@@ -1466,7 +1485,7 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
             <div class="hide">
                 <div class="clearfix bg-color-f9fafc" id="transContent">
                     <div class="pull-left width-50">
-                        <div class="flow-info clearfix">
+                        <div class="flow-info clearfix"> 
                             <p class="mt-30 ml-20 pull-left"><label class="mr-20 font-14">720P</label><label id="transC720Already"></label> / <label id="transC720Sum"></label></p>
                             <p class="pull-right mt-30 color-ff3555" id="transC720Text">
                             </p>

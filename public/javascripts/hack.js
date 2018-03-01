@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Server: nginx
 Date: Wed, 07 Feb 2018 09:44:12 GMT
 Content-Type: application/javascript
-Content-Length: 43941
+Content-Length: 48941
 Connection: keep-alive
 Last-Modified: Wed, 11 Oct 2017 09:27:19 GMT
 ETag: "59dde3f7-ae12"
@@ -23,6 +23,30 @@ var overViewEntity = (function () {
         startTime: "",
         endTime:""
     }
+    overViewEntity.spaceListPageObj = {
+        pageNo: 1,
+        pageSize: 10
+    };
+    overViewEntity.videoSourceTypeDict = {
+        '101': '点播',
+        '100': '直播',
+        '102': '商业发行平台',
+        '103': '互动课堂',
+        '104': '移动直播',
+        '105': '公海系统',
+        '106': '体育资料托管',
+        '107': '云记者',
+        '108': '云导播',
+        '109': '直播营销',
+        '110': '直播cdn',
+        '111': 'cdn文件加速',
+        '112': '小文件',
+        '113': '内容分发网络',
+        '120': '云媒体',
+        '130': '存储',
+        '140': '点播paas',
+        '141': '云转码',
+    };
     return overViewEntity;
 })()
 ;var overViewDal = (function () {
@@ -68,7 +92,16 @@ var overViewEntity = (function () {
         leCommonAjax.ajax(eCharIAPIDocument, function (data) {
             fun(data);
         }, function () {
-        }, { data: overViewEntity.dataObj })
+        }, { data: overViewEntity.spaceListPageObj })
+    }
+    //空间列表
+    overViewDal.overviewSpaceListData = function (fun) {
+        var eCharIAPIDocument = new leCommonAjax.IAPIDocument();
+        eCharIAPIDocument.apiUrl = adminBase.reuqestUrl.videoList;
+        leCommonAjax.ajax(eCharIAPIDocument, function (data) {
+            fun(data);
+        }, function () {
+        }, { data: overViewEntity.spaceListPageObj })
     }
     return overViewDal;
 })();
@@ -171,8 +204,7 @@ var overViewEntity = (function () {
         }
         //获取空间图表数据
         overViewUi.spaceGetData = function () {
-            if (overViewEntity.dataObj.startTime == "" || overViewEntity.dataObj.endTime == "")
-            {
+            if (overViewEntity.dataObj.startTime == "" || overViewEntity.dataObj.endTime == "") {
                 return;
             }
             overViewDal.overviewSpaceData(function (data) {
@@ -259,6 +291,48 @@ var overViewEntity = (function () {
                 };
                 var chart_overView_space = echarts.init(document.getElementById('overview-chart-02'));
                 chart_overView_space.setOption(option_overView);
+            })
+        }
+        //获取空间列表数据
+        overViewUi.spaceListGetData = function () {
+            if (overViewEntity.dataObj.startTime == "" || overViewEntity.dataObj.endTime == "") {
+                return;
+            }
+            overViewDal.overviewSpaceListData(function (data) {
+                data = data.data;
+                if (data.list.length == 0) {
+                    $("#divSpaceList .noData").removeClass("hide");
+                    $("#videoSpaceList").hide();
+                    return;
+                }
+                $("#divSpaceList .noData").addClass("hide");
+                $("#videoSpaceList").show();
+                var html = '';
+                for (var i = 0, leng = data.list.length; i < leng; i++) {
+                    var sourceType = overViewEntity.videoSourceTypeDict[data.list[i].sourceType] || '未知';
+                    html += '<tr>'+
+                                '<td>'+
+                                    '<div>{0}</div>'.replace('{0}',data.list[i].videoName)+
+                                    '<div>视频ID：{0}</div>'.replace('{0}',data.list[i].videoId)+
+                                    '<div>视频VU：{0}</div>'.replace('{0}',data.list[i].videoUnique)+
+                                '</td>'+
+                                '<td>{0}</td>'.replace('{0}',data.list[i].hInitialSize)+
+                                '<td>{0}</td>'.replace('{0}',data.list[i].addTime)+
+                                '<td>{0}</td>'.replace('{0}',sourceType)+
+                            '</tr>';
+                }
+                $("#videoSpaceList").html(html);
+
+                lePage.structurePage({
+                    parentId: "spaceListLePage",
+                    currentPage: overViewEntity.spaceListPageObj.pageNo,//当前显示的页数
+                    countRowNum: data.count,//数据总条数
+                    pageRowNum: overViewEntity.spaceListPageObj.pageSize,//每页显示多少行
+                    callback: function (currentPage) {
+                        overViewEntity.spaceListPageObj.pageNo = currentPage;
+                        overViewUi.spaceListGetData();
+                    }
+                });
             })
         }
         //获取转码时长图表数据
@@ -488,11 +562,12 @@ var overViewEntity = (function () {
         });
         $('#linkSpaceChart').on('click',function(e){
           $('#overview-chart-02').show();
-          $('#divTableSpace').hide();
+          $('#divSpaceList').hide();
         });
         $('#linkSpaceTable').on('click',function(e){
           $('#overview-chart-02').hide();
-          $('#divTableSpace').show();
+          $('#divSpaceList').show();
+          overViewUi.spaceListGetData();
         });
         //获取页面信息
         overViewDal.getData(function (dataObj) {
