@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Server: nginx
 Date: Wed, 07 Feb 2018 08:05:16 GMT
 Content-Type: text/html
-Content-Length: 250000
+Content-Length: 270000
 Connection: keep-alive
 Last-Modified: Wed, 17 May 2017 03:45:23 GMT
 ETag: "591bc753-2a50e"
@@ -1377,8 +1377,8 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
                 <!-- 日期图表模块/s -->
                 <div class="live-overview-con overview-layout bt-line clearfix ">
                     <div class="time-charge clearfix mt-30" datatype="flow">
-                        <a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active">最近7天</a>
-                        <a href="javascript:void(0)" class="pull-left mt-10 mr-10">最近30天</a>
+                        <a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active" data-time-type="last-7-days">最近7天</a>
+                        <a href="javascript:void(0)" class="pull-left mt-10 mr-10" data-time-type="last-30-days">最近30天</a>
                         <div class="date-con ml-10 pull-left">
                             <div class="pull-left ladate-box">日期<input readonly="readonly"  class="laydate-icon laydate-icon-svg common-input-style ml-10 mr-10 layData" style="width:130px;" id="dateFlowBegin" value=""> <svg class="icon icon-rili size-18"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use></svg></div>
                             <div class="pull-left ladate-box">到<input readonly="readonly"  class="laydate-icon  laydate-icon-svg common-input-style ml-10 mr-10 layData" style="width:130px;" id="dateFlowEnd" value=""><svg class="icon icon-rili size-18"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use></svg></div>
@@ -1403,11 +1403,7 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
                     <span class="pull-left">已存储视频数量</span>
                     <span class="pull-left">操作</span>
                   </div>
-                  <div class="clearfix">
-                      <span class="pull-left">共3G，已使用500M</span>
-                      <span class="pull-left">20个</span>
-                      <span class="pull-left"><a>视频管理</a></span>
-                  </div>                    
+                  <div class="clearfix" id="divOverviewSpaceTotal"></div>
                 </div>
                 <!-- 日期图表模块/s -->
                 <div class="live-overview-con overview-layout bt-line clearfix ">
@@ -1418,11 +1414,11 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
 							<a id="linkSpaceDownload" href="javascript:void(0);">下载</a>
 						</div>
 						<div class="time-charge pull-right" dataType="space">
-							<label class="error mt-20 hide" id="spaceDateError">
+							<label class="pull-left error mt-10 hide" id="spaceDateError">
 								查询时间跨度最大为31天
 							</label>
-							<a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active spaceData">最近7天</a>
-							<a href="javascript:void(0)" class="pull-left mt-10 mr-10 spaceData">最近30天</a>
+							<a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active spaceData" data-time-type="last-7-days">最近7天</a>
+							<a href="javascript:void(0)" class="pull-left mt-10 mr-10 spaceData" data-time-type="last-30-days">最近30天</a>
 							<div class="date-con ml-10 pull-left">
 								<div class="pull-left ladate-box">日期
 									<input readonly="readonly" class="laydate-icon laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;"
@@ -1456,16 +1452,6 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
                           </tr>
                         </thead>
                         <tbody id="videoSpaceList">
-                          <tr>
-							<td>
-								<div>视频ID：47421560</div>
-								<div>视频ID：47421560</div>
-								<div>视频VU：59ad49a0c2</div>
-							</td>
-							<td>208M</td>
-							<td>点播上传</td>
-							<td>点播上传</td>
-                          </tr>
 						</tbody>
 						<tfoot>
 							<tr>
@@ -1508,8 +1494,8 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
                 <!-- 日期图表模块/s -->
                 <div class="live-overview-con overview-layout bt-line clearfix ">
                     <div class="time-charge clearfix mt-30" dataType="trans">
-                        <a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active">最近7天</a>
-                        <a href="javascript:void(0)" class="pull-left mt-10 mr-10">最近30天</a>
+                        <a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active" data-time-type="last-7-days">最近7天</a>
+                        <a href="javascript:void(0)" class="pull-left mt-10 mr-10" data-time-type="last-30-days">最近30天</a>
                         <div class="date-con ml-10 pull-left">
                             <div class="pull-left ladate-box">日期<input readonly="readonly" class="laydate-icon laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;" id="dateTranscodingBegin" value=""> <svg class="icon icon-rili size-18"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use></svg></div>
                             <div class="pull-left ladate-box">到<input readonly="readonly" class="laydate-icon  laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;" id="dateTranscodingEnd" value=""><svg class="icon icon-rili size-18"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use></svg></div>

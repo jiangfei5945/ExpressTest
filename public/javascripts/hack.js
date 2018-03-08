@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Server: nginx
 Date: Wed, 07 Feb 2018 09:44:12 GMT
 Content-Type: application/javascript
-Content-Length: 48941
+Content-Length: 52941
 Connection: keep-alive
 Last-Modified: Wed, 11 Oct 2017 09:27:19 GMT
 ETag: "59dde3f7-ae12"
@@ -46,6 +46,18 @@ var overViewEntity = (function () {
         '130': '存储',
         '140': '点播paas',
         '141': '云转码',
+    };
+    overViewEntity.spaceTabType = 'chart';//chart or list
+    overViewEntity.spaceNumFormater = function (data) {
+        if (data / 1024 < 1) {
+            return data + 'B';
+        } else if (data / (1024 * 1024) < 1) {
+            return (data / 1024).toFixed(2) + 'KB';
+        } else if (data / (1024 * 1024 * 1024) < 1) {
+            return (data / (1024 * 1024)).toFixed(2) + 'M';
+        } else {
+            return (data / (1024 * 1024 * 1024)).toFixed(2) + 'G';
+        }
     };
     return overViewEntity;
 })()
@@ -102,6 +114,15 @@ var overViewEntity = (function () {
             fun(data);
         }, function () {
         }, { data: overViewEntity.spaceListPageObj })
+    }
+    //空间总计
+    overViewDal.overviewSpaceTotalData = function (fun) {
+        var eCharIAPIDocument = new leCommonAjax.IAPIDocument();
+        eCharIAPIDocument.apiUrl = '/api/v1/overview/spaceall';
+        leCommonAjax.ajax(eCharIAPIDocument, function (data) {
+            fun(data);
+        }, function () {
+        })
     }
     return overViewDal;
 })();
@@ -207,132 +228,141 @@ var overViewEntity = (function () {
             if (overViewEntity.dataObj.startTime == "" || overViewEntity.dataObj.endTime == "") {
                 return;
             }
-            overViewDal.overviewSpaceData(function (data) {
-                data = data.data;
-                if (data.value.space.length == 0) {
-                    $("#spaceNodata").removeClass("hide");
-                    $("#overview-chart-02").children().hide();
-                    return;
-                }
-                $("#spaceNodata").addClass("hide");
-                $("#overview-chart-02").children().show();
-                var option_overView = {
-                    title: {
-                        show: false
-                    },
-                    color: ['#208ac3'],
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            mark: { show: true },
-                            dataView: { show: true, readOnly: false },
-                            magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
-                            restore: { show: true },
-                            saveAsImage: { show: true }
-                        }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '0%',
-                        x: 65,
-                        y: 20,
-                        x2: 30,
-                        y2: 80,
-                        height: '100px',
-                        containLabel: false,
-                        borderWidth: 0,
-                        show: false
-                    },
-                    calculable: true,
-                    xAxis: [
-                        {
-                            type: 'category',
-                            boundaryGap: false,
-                            data: data.date,
-                            splitLine: {
-                                show: true,
-                                lineStyle: { type: 'dashed', color: '#f0eff4' }
-                            }
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            axisLabel: {
-                                formatter: '{value} MB'
-                            },
-                            splitLine: {
-                                show: true,
-                                lineStyle: { type: 'dashed', color: '#f0eff4' }
-                            }
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '空间',
-                            type: 'line',
-                            stack: '总量',
-                            smooth: true,
-                            // symbol: 'none',  //这句就是去掉点的
-                            calculable: false,  //点禁止拖动
-                            itemStyle: {
-                                normal: {
-                                    areaStyle: { color: '#e8f3f9' },
-                                    lineStyle: { color: '#208ac3' }
-                                }
-                            },
-                            data: data.value.space
-                        }
-                    ]
-                };
-                var chart_overView_space = echarts.init(document.getElementById('overview-chart-02'));
-                chart_overView_space.setOption(option_overView);
-            })
-        }
-        //获取空间列表数据
-        overViewUi.spaceListGetData = function () {
-            if (overViewEntity.dataObj.startTime == "" || overViewEntity.dataObj.endTime == "") {
-                return;
-            }
-            overViewDal.overviewSpaceListData(function (data) {
-                data = data.data;
-                if (data.list.length == 0) {
-                    $("#divSpaceList .noData").removeClass("hide");
-                    $("#videoSpaceList").hide();
-                    return;
-                }
-                $("#divSpaceList .noData").addClass("hide");
-                $("#videoSpaceList").show();
-                var html = '';
-                for (var i = 0, leng = data.list.length; i < leng; i++) {
-                    var sourceType = overViewEntity.videoSourceTypeDict[data.list[i].sourceType] || '未知';
-                    html += '<tr>'+
-                                '<td>'+
-                                    '<div>{0}</div>'.replace('{0}',data.list[i].videoName)+
-                                    '<div>视频ID：{0}</div>'.replace('{0}',data.list[i].videoId)+
-                                    '<div>视频VU：{0}</div>'.replace('{0}',data.list[i].videoUnique)+
-                                '</td>'+
-                                '<td>{0}</td>'.replace('{0}',data.list[i].hInitialSize)+
-                                '<td>{0}</td>'.replace('{0}',data.list[i].addTime)+
-                                '<td>{0}</td>'.replace('{0}',sourceType)+
-                            '</tr>';
-                }
-                $("#videoSpaceList").html(html);
-
-                lePage.structurePage({
-                    parentId: "spaceListLePage",
-                    currentPage: overViewEntity.spaceListPageObj.pageNo,//当前显示的页数
-                    countRowNum: data.count,//数据总条数
-                    pageRowNum: overViewEntity.spaceListPageObj.pageSize,//每页显示多少行
-                    callback: function (currentPage) {
-                        overViewEntity.spaceListPageObj.pageNo = currentPage;
-                        overViewUi.spaceListGetData();
+            if(overViewEntity.spaceTabType === 'chart') {
+                overViewDal.overviewSpaceData(function (data) {
+                    data = data.data;
+                    if (data.value.space.length == 0) {
+                        $("#spaceNodata").removeClass("hide");
+                        $("#overview-chart-02").children().hide();
+                        return;
                     }
+                    $("#spaceNodata").addClass("hide");
+                    $("#overview-chart-02").children().show();
+                    var option_overView = {
+                        title: {
+                            show: false
+                        },
+                        color: ['#208ac3'],
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        toolbox: {
+                            show: false,
+                            feature: {
+                                mark: { show: true },
+                                dataView: { show: true, readOnly: false },
+                                magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                                restore: { show: true },
+                                saveAsImage: { show: true }
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '0%',
+                            x: 65,
+                            y: 20,
+                            x2: 30,
+                            y2: 80,
+                            height: '100px',
+                            containLabel: false,
+                            borderWidth: 0,
+                            show: false
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: data.date,
+                                splitLine: {
+                                    show: true,
+                                    lineStyle: { type: 'dashed', color: '#f0eff4' }
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                axisLabel: {
+                                    formatter: '{value} MB'
+                                },
+                                splitLine: {
+                                    show: true,
+                                    lineStyle: { type: 'dashed', color: '#f0eff4' }
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '空间',
+                                type: 'line',
+                                stack: '总量',
+                                smooth: true,
+                                // symbol: 'none',  //这句就是去掉点的
+                                calculable: false,  //点禁止拖动
+                                itemStyle: {
+                                    normal: {
+                                        areaStyle: { color: '#e8f3f9' },
+                                        lineStyle: { color: '#208ac3' }
+                                    }
+                                },
+                                data: data.value.space
+                            }
+                        ]
+                    };
+                    var chart_overView_space = echarts.init(document.getElementById('overview-chart-02'));
+                    chart_overView_space.setOption(option_overView);
+                })
+            } else if(overViewEntity.spaceTabType === 'list'){
+                overViewDal.overviewSpaceListData(function (data) {
+                    data = data.data;
+                    if (data.list.length == 0) {
+                        $("#divSpaceList .noData").removeClass("hide");
+                        $("#videoSpaceList").hide();
+                        return;
+                    }
+                    $("#divSpaceList .noData").addClass("hide");
+                    $("#videoSpaceList").show();
+                    var html = '';
+                    for (var i = 0, leng = data.list.length; i < leng; i++) {
+                        var sourceType = overViewEntity.videoSourceTypeDict[data.list[i].sourceType] || '未知';
+                        html += '<tr>' +
+                            '<td>' +
+                            '<div>{0}</div>'.replace('{0}', data.list[i].videoName) +
+                            '<div>视频ID：{0}</div>'.replace('{0}', data.list[i].videoId) +
+                            '<div>视频VU：{0}</div>'.replace('{0}', data.list[i].videoUnique) +
+                            '</td>' +
+                            '<td>{0}</td>'.replace('{0}', data.list[i].hInitialSize) +
+                            '<td>{0}</td>'.replace('{0}', data.list[i].addTime) +
+                            '<td>{0}</td>'.replace('{0}', sourceType) +
+                            '</tr>';
+                    }
+                    $("#videoSpaceList").html(html);
+    
+                    lePage.structurePage({
+                        parentId: "spaceListLePage",
+                        currentPage: overViewEntity.spaceListPageObj.pageNo,//当前显示的页数
+                        countRowNum: data.count,//数据总条数
+                        pageRowNum: overViewEntity.spaceListPageObj.pageSize,//每页显示多少行
+                        callback: function (currentPage) {
+                            overViewEntity.spaceListPageObj.pageNo = currentPage;
+                            overViewUi.spaceGetData();
+                        }
+                    });
                 });
+            }
+        }
+        //获取空间总计数据
+        overViewUi.spaceTotalGetData = function () {
+            overViewDal.overviewSpaceTotalData(function (data) {
+                data = data.data;
+                var html = '<span class="pull-left">共{0}G，'.replace('{0}',overViewEntity.spaceNumFormater(data.packageSpace))+
+                                '已使用{0}</span>'.replace('{0}',overViewEntity.spaceNumFormater(data.usedSpace))+
+                            '<span class="pull-left">{0}个</span>'.replace('{0}',data.videoNum)+
+                            '<span class="pull-left"><a href="/vod.lecloud.com/videoManagement.html">视频管理</a></span>';
+                $("#divOverviewSpaceTotal").html(html);
+
             })
         }
         //获取转码时长图表数据
@@ -525,8 +555,8 @@ var overViewEntity = (function () {
             $(thisObj).siblings().removeClass("active");
             $(thisObj).addClass("active");
             var type = $(thisObj).parents(".time-charge").attr("dataType");
-            var index = $(thisObj).index();
-            if (index == 0) {
+            var timeType = $(thisObj).data('time-type');
+            if (timeType == 'last-7-days') {
                 overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(6);
                 overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
                 if (type == "flow") {
@@ -542,7 +572,7 @@ var overViewEntity = (function () {
                     $("#transDateError").hide();
                     overViewUi.transGetData();
                 }
-            } else if (index == 1) {
+            } else if (timeType == 'last-30-days') {
                 overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(29);
                 overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
                 if (type == "flow") {
@@ -563,11 +593,14 @@ var overViewEntity = (function () {
         $('#linkSpaceChart').on('click',function(e){
           $('#overview-chart-02').show();
           $('#divSpaceList').hide();
+          overViewEntity.spaceTabType = 'chart';
+          overViewUi.spaceGetData();
         });
         $('#linkSpaceTable').on('click',function(e){
           $('#overview-chart-02').hide();
           $('#divSpaceList').show();
-          overViewUi.spaceListGetData();
+          overViewEntity.spaceTabType = 'list';
+          overViewUi.spaceGetData();
         });
         //获取页面信息
         overViewDal.getData(function (dataObj) {
@@ -997,7 +1030,8 @@ var overViewEntity = (function () {
                             transActive = false;
                         }
                     }
-                })
+                });
+                overViewUi.spaceTotalGetData();
             }
             leLoading.destroy(loadingId);  // 销毁loading
         });
