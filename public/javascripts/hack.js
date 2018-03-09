@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Server: nginx
 Date: Wed, 07 Feb 2018 09:44:12 GMT
 Content-Type: application/javascript
-Content-Length: 52941
+Content-Length: 53941
 Connection: keep-alive
 Last-Modified: Wed, 11 Oct 2017 09:27:19 GMT
 ETag: "59dde3f7-ae12"
@@ -104,7 +104,7 @@ var overViewEntity = (function () {
         leCommonAjax.ajax(eCharIAPIDocument, function (data) {
             fun(data);
         }, function () {
-        }, { data: overViewEntity.spaceListPageObj })
+        }, { data: overViewEntity.dataObj })
     }
     //空间列表
     overViewDal.overviewSpaceListData = function (fun) {
@@ -113,7 +113,10 @@ var overViewEntity = (function () {
         leCommonAjax.ajax(eCharIAPIDocument, function (data) {
             fun(data);
         }, function () {
-        }, { data: overViewEntity.spaceListPageObj })
+        }, { data: $.extend({}, overViewEntity.spaceListPageObj, {
+            startTime: overViewEntity.dataObj.startTime + ' 00:00',
+            endTime: overViewEntity.dataObj.endTime + ' 00:00'
+        }) })
     }
     //空间总计
     overViewDal.overviewSpaceTotalData = function (fun) {
@@ -707,8 +710,6 @@ var overViewEntity = (function () {
                 })
             } else if (userType == 2) {
                 $("#zzhContent").show();
-                //初始化tab
-                $("#flow-label").myTab({ parent: "#flow-con", method: 0 });
                 //初始化日历控件
                 //流量
                 var dateFlowBegin = {
@@ -1012,7 +1013,7 @@ var overViewEntity = (function () {
                 overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
                 var spaceActive = true;
                 var transActive = true;
-                $("#flow-label li").on("click", function () {
+                $("#flow-label-zzh li").on("click", function () {
                     var selIndex = $(this).index();
                     if (selIndex == 1) {
                         //空间
@@ -1038,7 +1039,8 @@ var overViewEntity = (function () {
     }();
     //return overViewUi;
     //tab切换
-    $("#flow-label").myTab({ parent: "#flow-con", method: 0 });
+    $("#flow-label-zzh").myTab({ parent: "#flow-con-zzh", method: 0 });
+    $("#flow-label-dkh").myTab({ parent: "#flow-con-dkh", method: 0 });
     //日历图标点击触发日历
     $(".icon-rili").on("click", function () {
         $(this).prev().click();

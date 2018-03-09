@@ -1355,12 +1355,12 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
         </div>
     </div>
     <div class="overview-layout overview-sec3 background-fff mt-20 clearfix ">
-        <ul class="flow-label overflow-hidden" id="flow-label">
+        <ul class="flow-label overflow-hidden" id="flow-label-zzh">
             <li class="active">流量</li>
             <li>空间</li>
             <li>转码时长</li>
         </ul>
-        <div class="flow-con" id="flow-con">
+        <div class="flow-con" id="flow-con-zzh">
             <!-- 流量 -->
             <div>
                 <div class="bg-color-f9fafc">
@@ -1549,27 +1549,102 @@ Leeco: 0.004-SLBMTIzLjEyNS4zNi4zMwo=-ID200112.32.99:8280-200
         </div>
     </div>
     <div class="overview-layout overview-sec3 background-fff mt-20 clearfix ">
-        <ul class="flow-label overflow-hidden" id="flow-label">
-            <li class="active">播放量统计（近7天）</li>
+        <ul class="flow-label overflow-hidden" id="flow-label-dkh">
+			<li class="active">播放量统计（近7天）</li>
+			<li>空间</li>
         </ul>
-        <div class="flow-con" id="flow-con">
-            <!-- 流量 -->
-            <div>
-                <div class="bg-color-f9fafc">
-                    <div class="clearfix" style="text-align:center;padding:30px;font-size:14px">播放量统计图</div>
-                </div>
-                <!-- 日期图表模块/s -->
-                <div class="live-overview-con overview-layout bt-line clearfix ">
-                    <div class="time-charge clearfix mt-30">
-
-                    </div>
-                    <!-- 图表/s -->
-                    <div class="live-charge" id="overview-chart-dkh"></div>
-                    <!-- 图表/e -->
-                </div>
-                <!-- 日期图表模块/e -->
-            </div>
-        </div>
+		<div class="flow-con" id="flow-con-dkh">
+			<!-- 流量 -->
+			<div>
+				<div class="bg-color-f9fafc">
+					<div class="clearfix" style="text-align:center;padding:30px;font-size:14px">播放量统计图</div>
+				</div>
+				<!-- 日期图表模块/s -->
+				<div class="live-overview-con overview-layout bt-line clearfix ">
+					<div class="time-charge clearfix mt-30">
+		
+					</div>
+					<!-- 图表/s -->
+					<div class="live-charge" id="overview-chart-dkh"></div>
+					<!-- 图表/e -->
+				</div>
+				<!-- 日期图表模块/e -->
+			</div>
+			<!-- 空间 -->
+			<div class="hide">
+				<div class="overview-space-profile">
+					<div class="clearfix">
+						<span class="pull-left">空间</span>
+						<span class="pull-left">已存储视频数量</span>
+						<span class="pull-left">操作</span>
+					</div>
+					<div class="clearfix" id="divOverviewSpaceTotal"></div>
+				</div>
+				<!-- 日期图表模块/s -->
+				<div class="live-overview-con overview-layout bt-line clearfix ">
+					<div class="clearfix mt-10">
+						<div class="space-data-type pull-left">
+							<a id="linkSpaceChart" href="javascript:void(0);">图表</a>
+							<a id="linkSpaceTable" href="javascript:void(0);">列表</a>
+							<a id="linkSpaceDownload" href="javascript:void(0);">下载</a>
+						</div>
+						<div class="time-charge pull-right" dataType="space">
+							<label class="pull-left error mt-10 hide" id="spaceDateError">
+								查询时间跨度最大为31天
+							</label>
+							<a href="javascript:void(0)" class="pull-left mt-10 ml-20 mr-10 active spaceData" data-time-type="last-7-days">最近7天</a>
+							<a href="javascript:void(0)" class="pull-left mt-10 mr-10 spaceData" data-time-type="last-30-days">最近30天</a>
+							<div class="date-con ml-10 pull-left">
+								<div class="pull-left ladate-box">日期
+									<input readonly="readonly" class="laydate-icon laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;" id="dataSpaceBegin"
+									 value="">
+									<svg class="icon icon-rili size-18">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use>
+									</svg>
+								</div>
+								<div class="pull-left ladate-box">到
+									<input readonly="readonly" class="laydate-icon  laydate-icon-svg common-input-style ml-10 mr-10" style="width:130px;" id="dateSpaceEnd"
+									 value="">
+									<svg class="icon icon-rili size-18">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rili"></use>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="space-used-sum">2017年1月1日 23:12:10 到 2017年1月4日 23:12:10 空间使用：
+						<span class="used-sum-num">500M</span>
+					</p>
+					<!-- 图表/s -->
+					<div class="live-charge" id="overview-chart-02">
+					</div>
+					<div class="video-datas" id="divSpaceList" style="display:none;">
+						<table class="table-style-01">
+							<thead>
+								<tr>
+									<th>视频ID/视频名称</th>
+									<th>空间</th>
+									<th>上传时间</th>
+									<th>视频来源</th>
+								</tr>
+							</thead>
+							<tbody id="videoSpaceList">
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4">
+										<div class="pull-right" id="spaceListLePage"></div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<p class="noData hide" id="spaceNodata">暂无数据</p>
+					<!-- 图表/e -->
+				</div>
+				<!-- 日期图表模块/e -->
+			</div>
+		</div>
     </div>
 </div>
 <!-- container/E -->
