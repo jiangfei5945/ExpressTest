@@ -48,6 +48,7 @@ var overViewEntity = (function () {
         '141': '云转码',
     };
     overViewEntity.spaceTabType = 'chart';//chart or list
+    overViewEntity.userType = '';//zzh or dkh
     overViewEntity.spaceNumFormater = function (data) {
         if (data / 1024 < 1) {
             return data + 'B';
@@ -131,6 +132,15 @@ var overViewEntity = (function () {
 })();
 ;var overViewUi = (function () {
     function overViewUi() {
+    }
+    function buildSpaceSelector(data) {
+        return '#{0}Content '.replace('{0}', overViewEntity.userType) + data;
+    }
+    function buildDateSpaceBeginSelector() {
+        return overViewEntity.userType === 'zzh' ? '#dateSpaceBeginZzh' : '#dateSpaceBeginDkh';
+    }
+    function buildDateSpaceEndSelector() {
+        return overViewEntity.userType === 'zzh' ? '#dateSpaceEndZzh' : '#dateSpaceEndDkh';
     }
     var loadingId = leLoading.create("waitLoading");
     overViewUi.init = function () {
@@ -235,12 +245,12 @@ var overViewEntity = (function () {
                 overViewDal.overviewSpaceData(function (data) {
                     data = data.data;
                     if (data.value.space.length == 0) {
-                        $("#spaceNodata").removeClass("hide");
-                        $("#overview-chart-02").children().hide();
+                        $(buildSpaceSelector("#spaceNodata")).removeClass("hide");
+                        $(buildSpaceSelector("#overview-chart-02")).children().hide();
                         return;
                     }
-                    $("#spaceNodata").addClass("hide");
-                    $("#overview-chart-02").children().show();
+                    $(buildSpaceSelector("#spaceNodata")).addClass("hide");
+                    $(buildSpaceSelector("#overview-chart-02")).children().show();
                     var option_overView = {
                         title: {
                             show: false
@@ -314,19 +324,19 @@ var overViewEntity = (function () {
                             }
                         ]
                     };
-                    var chart_overView_space = echarts.init(document.getElementById('overview-chart-02'));
+                    var chart_overView_space = echarts.init($(buildSpaceSelector("#overview-chart-02"))[0]);
                     chart_overView_space.setOption(option_overView);
                 })
             } else if(overViewEntity.spaceTabType === 'list'){
                 overViewDal.overviewSpaceListData(function (data) {
                     data = data.data;
                     if (data.list.length == 0) {
-                        $("#divSpaceList .noData").removeClass("hide");
-                        $("#videoSpaceList").hide();
+                        $(buildSpaceSelector("#divSpaceList .noData")).removeClass("hide");
+                        $(buildSpaceSelector("#videoSpaceList")).hide();
                         return;
                     }
-                    $("#divSpaceList .noData").addClass("hide");
-                    $("#videoSpaceList").show();
+                    $(buildSpaceSelector("#divSpaceList .noData")).addClass("hide");
+                    $(buildSpaceSelector("#videoSpaceList")).show();
                     var html = '';
                     for (var i = 0, leng = data.list.length; i < leng; i++) {
                         var sourceType = overViewEntity.videoSourceTypeDict[data.list[i].sourceType] || '未知';
@@ -341,10 +351,10 @@ var overViewEntity = (function () {
                             '<td>{0}</td>'.replace('{0}', sourceType) +
                             '</tr>';
                     }
-                    $("#videoSpaceList").html(html);
+                    $(buildSpaceSelector("#videoSpaceList")).html(html);
     
                     lePage.structurePage({
-                        parentId: "spaceListLePage",
+                        parentId: buildSpaceSelector("#spaceListLePage"),
                         currentPage: overViewEntity.spaceListPageObj.pageNo,//当前显示的页数
                         countRowNum: data.count,//数据总条数
                         pageRowNum: overViewEntity.spaceListPageObj.pageSize,//每页显示多少行
@@ -357,15 +367,14 @@ var overViewEntity = (function () {
             }
         }
         //获取空间总计数据
-        overViewUi.spaceTotalGetData = function () {
+        overViewUi.spaceTotalGetData = function (selector) {
             overViewDal.overviewSpaceTotalData(function (data) {
                 data = data.data;
                 var html = '<span class="pull-left">共{0}G，'.replace('{0}',overViewEntity.spaceNumFormater(data.packageSpace))+
                                 '已使用{0}</span>'.replace('{0}',overViewEntity.spaceNumFormater(data.usedSpace))+
                             '<span class="pull-left">{0}个</span>'.replace('{0}',data.videoNum)+
                             '<span class="pull-left"><a href="/vod.lecloud.com/videoManagement.html">视频管理</a></span>';
-                $("#divOverviewSpaceTotal").html(html);
-
+                $(selector).html(html);
             })
         }
         //获取转码时长图表数据
@@ -552,66 +561,68 @@ var overViewEntity = (function () {
                 chart_overView_transcoding.setOption(option);
             })
         }
-        //切换时间
-        $(".time-charge a").on("click", function () {
-            var thisObj = $(this);
-            $(thisObj).siblings().removeClass("active");
-            $(thisObj).addClass("active");
-            var type = $(thisObj).parents(".time-charge").attr("dataType");
-            var timeType = $(thisObj).data('time-type');
-            if (timeType == 'last-7-days') {
-                overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(6);
-                overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
-                if (type == "flow") {
-                    $("#dateFlowBegin,#dateFlowEnd").removeClass("error");
-                    $("#flowDateError").hide();
-                    overViewUi.flowGetData();
-                } else if (type == "space") {
-                    $("#dataSpaceBegin,#dateSpaceEnd").removeClass("error");
-                    $("#spaceDateError").hide();
-                    overViewUi.spaceGetData();
-                } else if (type == "trans") {
-                    $("#dateTranscodingBegin,#dateTranscodingEnd").removeClass("error");
-                    $("#transDateError").hide();
-                    overViewUi.transGetData();
-                }
-            } else if (timeType == 'last-30-days') {
-                overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(29);
-                overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
-                if (type == "flow") {
-                    $("#dateFlowBegin,#dateFlowEnd").removeClass("error");
-                    $("#flowDateError").hide();
-                    overViewUi.flowGetData();
-                } else if (type == "space") {
-                    $("#dataSpaceBegin,#dateSpaceEnd").removeClass("error");
-                    $("#spaceDateError").hide();
-                    overViewUi.spaceGetData();
-                } else if (type == "trans") {
-                    $("#dateTranscodingBegin,#dateTranscodingEnd").removeClass("error");
-                    $("#transDateError").hide();
-                    overViewUi.transGetData();
-                }
-            }
-        });
-        $('#linkSpaceChart').on('click',function(e){
-          $('#overview-chart-02').show();
-          $('#divSpaceList').hide();
-          overViewEntity.spaceTabType = 'chart';
-          overViewUi.spaceGetData();
-        });
-        $('#linkSpaceTable').on('click',function(e){
-          $('#overview-chart-02').hide();
-          $('#divSpaceList').show();
-          overViewEntity.spaceTabType = 'list';
-          overViewUi.spaceGetData();
-        });
         //获取页面信息
         overViewDal.getData(function (dataObj) {
             dataObj = dataObj.data;
             var userType = dataObj.userType;
+            //空间
+            var dataSpaceBegin = {
+                format: 'YYYY-MM-DD',
+                istime: true,
+                istoday: false,
+                max: laydate.now(0),
+                choose: function (datas) {
+                    dataSpaceEnd.min = datas; //开始日选好后，重置结束日的最小日期
+                    dataSpaceEnd.start = datas //将结束日的初始值设定为开始日
+                    overViewEntity.dataObj.startTime = datas;
+                    var otherTime = $(buildDateSpaceEndSelector()).val();
+                    if (otherTime != "") {
+                        var startDate = new Date(datas);
+                        var endDate = new Date(otherTime);
+                        var diffDate = parseInt(Math.abs(startDate - endDate) / 1000 / 60 / 60 / 24) + 1;
+                        if (diffDate > 31) {
+                            $(buildDateSpaceBeginSelector()+','+buildDateSpaceEndSelector()).addClass("error");
+                            $(buildSpaceSelector("#spaceDateError")).show();
+                            return;
+                        }
+                        $(buildDateSpaceBeginSelector()+','+buildDateSpaceEndSelector()).removeClass("error");
+                        $(buildSpaceSelector("#spaceDateError")).hide();
+                        $(buildSpaceSelector("div[datatype='space']")).find(".active").removeClass("active");
+                        overViewUi.spaceGetData(); //查询图表数据
+                    }
+                }
+            };
+            var dataSpaceEnd = {
+                format: 'YYYY-MM-DD',
+                istime: true,
+                istoday: false,
+                max: laydate.now(0),
+                choose: function (datas) {
+                    dataSpaceBegin.max = datas; //结束日选好后，重置开始日的最大日期
+                    overViewEntity.dataObj.endTime = datas;
+                    var otherTime = $(buildDateSpaceBeginSelector()).val();
+                    if (otherTime != "") {
+                        var startDate = new Date(datas);
+                        var endDate = new Date(otherTime);
+                        var diffDate = parseInt(Math.abs(startDate - endDate) / 1000 / 60 / 60 / 24) + 1;
+                        if (diffDate > 31) {
+                            $(buildDateSpaceBeginSelector()+','+buildDateSpaceEndSelector()).addClass("error");
+                            $(buildSpaceSelector("#spaceDateError")).show();
+                            return;
+                        }
+                        $(buildDateSpaceBeginSelector()+','+buildDateSpaceEndSelector()).removeClass("error");
+                        $(buildSpaceSelector("#spaceDateError")).hide();
+                        $(buildSpaceSelector("div[datatype='space']")).find(".active").removeClass("active");
+                        overViewUi.spaceGetData(); //查询图表数据
+                    }
+                }
+            };
             //1:大客户 2:自主化客户
             if (userType == 1) {
+                overViewEntity.userType = 'dkh';
                 $("#dkhContent").show();
+                dataSpaceBegin.elem = buildDateSpaceBeginSelector();
+                dataSpaceEnd.elem = buildDateSpaceEndSelector();
                 var enable = dataObj.vipOverview.enable;
                 var useSpace = dataObj.vipOverview.useSpace;
                 var uu = dataObj.vipOverview.uu;
@@ -631,6 +642,10 @@ var overViewEntity = (function () {
                 $("#dkhVideoCount").text(videoCount);
                 $("#dkhReleaseVideo").text(publishedVideoCount);
                 $("#dkhPendingVideo").text(checkWaitVideoCount);
+                laydate(dataSpaceBegin);
+                laydate(dataSpaceEnd);
+                overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(6);
+                overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
                 overViewDal.overviewCv(function (data) {
                     data = data.data;
                     var chart_overView = echarts.init(document.getElementById('overview-chart-dkh'));
@@ -707,10 +722,16 @@ var overViewEntity = (function () {
                         ]
                     };
                     chart_overView.setOption(option_overView);
-                })
+                });
+                $(buildSpaceSelector("#flow-label-dkh li:eq(1)")).on("click", function () {
+                    overViewUi.spaceGetData();
+                });
+
             } else if (userType == 2) {
+                overViewEntity.userType = 'zzh';
                 $("#zzhContent").show();
-                //初始化日历控件
+                dataSpaceBegin.elem = buildDateSpaceBeginSelector();
+                dataSpaceEnd.elem = buildDateSpaceEndSelector();
                 //流量
                 var dateFlowBegin = {
                     elem: '#dateFlowBegin',
@@ -764,60 +785,6 @@ var overViewEntity = (function () {
                             $("#flowDateError").hide();
                             $("div[datatype='flow']").find(".active").removeClass("active");
                             overViewUi.flowGetData(); //查询图表数据
-                        }
-                    }
-                };
-                //空间
-                var dataSpaceBegin = {
-                    elem: '#dataSpaceBegin',
-                    format: 'YYYY-MM-DD',
-                    istime: true,
-                    istoday: false,
-                    max: laydate.now(0),
-                    choose: function (datas) {
-                        dataSpaceEnd.min = datas; //开始日选好后，重置结束日的最小日期
-                        dataSpaceEnd.start = datas //将结束日的初始值设定为开始日
-                        overViewEntity.dataObj.startTime = datas;
-                        var otherTime = $("#dateSpaceEnd").val();
-                        if (otherTime != "") {
-                            var startDate = new Date(datas);
-                            var endDate = new Date(otherTime);
-                            var diffDate = parseInt(Math.abs(startDate - endDate) / 1000 / 60 / 60 / 24) + 1;
-                            if (diffDate > 31) {
-                                $("#dataSpaceBegin,#dateSpaceEnd").addClass("error");
-                                $("#spaceDateError").show();
-                                return;
-                            }
-                            $("#dataSpaceBegin,#dateSpaceEnd").removeClass("error");
-                            $("#spaceDateError").hide();
-                            $("div[datatype='space']").find(".active").removeClass("active");
-                            overViewUi.spaceGetData(); //查询图表数据
-                        }
-                    }
-                };
-                var dataSpaceEnd = {
-                    elem: '#dateSpaceEnd',
-                    format: 'YYYY-MM-DD',
-                    istime: true,
-                    istoday: false,
-                    max: laydate.now(0),
-                    choose: function (datas) {
-                        dataSpaceBegin.max = datas; //结束日选好后，重置开始日的最大日期
-                        overViewEntity.dataObj.endTime = datas;
-                        var otherTime = $("#dataSpaceBegin").val();
-                        if (otherTime != "") {
-                            var startDate = new Date(datas);
-                            var endDate = new Date(otherTime);
-                            var diffDate = parseInt(Math.abs(startDate - endDate) / 1000 / 60 / 60 / 24) + 1;
-                            if (diffDate > 31) {
-                                $("#dataSpaceBegin,#dateSpaceEnd").addClass("error");
-                                $("#spaceDateError").show();
-                                return;
-                            }
-                            $("#dataSpaceBegin,#dateSpaceEnd").removeClass("error");
-                            $("#spaceDateError").hide();
-                            $("div[datatype='space']").find(".active").removeClass("active");
-                            overViewUi.spaceGetData(); //查询图表数据
                         }
                     }
                 };
@@ -1013,7 +980,7 @@ var overViewEntity = (function () {
                 overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
                 var spaceActive = true;
                 var transActive = true;
-                $("#flow-label-zzh li").on("click", function () {
+                $(buildSpaceSelector("#flow-label li")).on("click", function () {
                     var selIndex = $(this).index();
                     if (selIndex == 1) {
                         //空间
@@ -1032,15 +999,66 @@ var overViewEntity = (function () {
                         }
                     }
                 });
-                overViewUi.spaceTotalGetData();
             }
+            overViewUi.spaceTotalGetData(buildSpaceSelector('#divOverviewSpaceTotal'));
+            $(buildSpaceSelector('#linkSpaceChart')).on('click', function (e) {
+                $(buildSpaceSelector('#overview-chart-02')).show();
+                $(buildSpaceSelector('#divSpaceList')).hide();
+                overViewEntity.spaceTabType = 'chart';
+                overViewUi.spaceGetData();
+            });
+            $(buildSpaceSelector('#linkSpaceTable')).on('click', function (e) {
+                $(buildSpaceSelector('#overview-chart-02')).hide();
+                $(buildSpaceSelector('#divSpaceList')).show();
+                overViewEntity.spaceTabType = 'list';
+                overViewUi.spaceGetData();
+            });
+            //tab切换
+            $(buildSpaceSelector("#flow-label")).myTab({ parent: buildSpaceSelector("#flow-con"), method: 0 });
+            //切换时间
+            $(".time-charge a").on("click", function () {
+                var thisObj = $(this);
+                $(thisObj).siblings().removeClass("active");
+                $(thisObj).addClass("active");
+                var type = $(thisObj).parents(".time-charge").attr("dataType");
+                var timeType = $(thisObj).data('time-type');
+                if (timeType == 'last-7-days') {
+                    overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(6);
+                    overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
+                    if (type == "flow") {
+                        $("#dateFlowBegin,#dateFlowEnd").removeClass("error");
+                        $("#flowDateError").hide();
+                        overViewUi.flowGetData();
+                    } else if (type == "space") {
+                        $(buildDateSpaceBeginSelector()+','+buildDateSpaceEndSelector()).removeClass("error");
+                        $(buildSpaceSelector("#spaceDateError")).hide();
+                        overViewUi.spaceGetData();
+                    } else if (type == "trans") {
+                        $("#dateTranscodingBegin,#dateTranscodingEnd").removeClass("error");
+                        $("#transDateError").hide();
+                        overViewUi.transGetData();
+                    }
+                } else if (timeType == 'last-30-days') {
+                    overViewEntity.dataObj.startTime = leToolFunction.getBeforeDate(29);
+                    overViewEntity.dataObj.endTime = leToolFunction.getNowTime();
+                    if (type == "flow") {
+                        $("#dateFlowBegin,#dateFlowEnd").removeClass("error");
+                        $("#flowDateError").hide();
+                        overViewUi.flowGetData();
+                    } else if (type == "space") {
+                        $(buildDateSpaceBeginSelector()+','+buildDateSpaceEndSelector()).removeClass("error");
+                        $(buildSpaceSelector("#spaceDateError")).hide();
+                        overViewUi.spaceGetData();
+                    } else if (type == "trans") {
+                        $("#dateTranscodingBegin,#dateTranscodingEnd").removeClass("error");
+                        $("#transDateError").hide();
+                        overViewUi.transGetData();
+                    }
+                }
+            });
             leLoading.destroy(loadingId);  // 销毁loading
         });
     }();
-    //return overViewUi;
-    //tab切换
-    $("#flow-label-zzh").myTab({ parent: "#flow-con-zzh", method: 0 });
-    $("#flow-label-dkh").myTab({ parent: "#flow-con-dkh", method: 0 });
     //日历图标点击触发日历
     $(".icon-rili").on("click", function () {
         $(this).prev().click();
