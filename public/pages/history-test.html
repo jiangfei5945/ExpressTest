@@ -10,7 +10,7 @@
 <button onclick="replaceStatePage3()">replaceStatePage3</button>
 <button onclick="back()">back</button>
 <button onclick="forward2()">forward2</button>
-<script type="application/javascript">
+<script type="text/javascript">
     window.onpopstate = function(event) {
         console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
     };

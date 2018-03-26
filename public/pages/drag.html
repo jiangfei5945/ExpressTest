@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #divDragable {
+      width: 200px;
+      height: 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .dropzone {
+      width: 200px;
+      height: 20px;
+      background: blueviolet;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dropzone">
+    <div id="divDragable" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+      This div is draggable
+    </div>
+  </div>
+  <div class="dropzone"></div>
+  <div class="dropzone"></div>
+  <div class="dropzone"></div>
+  <script type="text/javascript">
+    var draged;
+    document.addEventListener('drag', function (e) {
+      console.log('Event:drag');
+    }, false);
+    document.addEventListener('dragstart', function (e) {
+      console.log('Event:dragstart');
+      draged = e.target;
+      e.target.style.opacity = .5;
+    }, false);
+    document.addEventListener('dragend', function (e) {
+      console.log('Event:dragend');
+      e.target.style.opacity = 1;
+    }, false);
+    document.addEventListener('dragover', function (e) {
+      console.log('Event:dragover');
+      e.preventDefault();
+    }, false);
+    document.addEventListener('dragenter', function (e) {
+      console.log('Event:dragenter');
+      if(e.target.className === 'dropzone'){
+        e.target.style.background = 'purple';
+      }
+    }, false);
+    document.addEventListener('dragleave', function (e) {
+      console.log('Event:dragleave');
+      if(e.target.className === 'dropzone'){
+        e.target.style.background = '';
+      }
+    }, false);
+    document.addEventListener('drop', function (e) {
+      console.log('Event:drop');
+      e.preventDefault();
+      if(e.target.className === 'dropzone'){
+        e.target.style.background = '';
+        draged.parentNode.removeChild(draged);
+        e.target.appendChild(draged);
+      }
+    }, false);
+  </script>
+</body>
+
+</html>

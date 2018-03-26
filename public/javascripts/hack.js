@@ -1,7 +1,7 @@
 HTTP/1.1 200 OK
 Server: nginx
 Date: Wed, 07 Feb 2018 09:44:12 GMT
-Content-Type: application/javascript
+Content-Type: text/javascript
 Content-Length: 53941
 Connection: keep-alive
 Last-Modified: Wed, 11 Oct 2017 09:27:19 GMT

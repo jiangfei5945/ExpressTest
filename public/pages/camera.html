@@ -10,7 +10,7 @@
 
 <body>
     <video id="videoTest" width="320" height="240" controls></video>
-    <script type="application/javascript">
+    <script type="text/javascript">
         var p = navigator.mediaDevices.getUserMedia({audio:true,video:true});
         p.then(function(mediaStream){
             var videoEl = document.getElementById('videoTest');

@@ -50,7 +50,7 @@
         player.init({
             activityId: "A201604010000051",
             //callbackJs: "call",
-            type:'h5',
+            type: 'h5',
             skinnable: 1,
             //controls: 0,
             posterType: 1,
@@ -58,6 +58,12 @@
             auto_play: 1,
             seekRange: ""
         });
+
+        function getTriple(a) {
+            a.sort(function(x,y){
+                return x - y 
+            });
+        }
     </script>
     <!-- <script>
         window.call = function (type, data) {
