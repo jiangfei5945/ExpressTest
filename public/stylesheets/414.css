@@ -21,7 +21,10 @@
 .error {
   color: #ff4e2b;
 }
+
+
 /* common end */
+
 
 /* normal start */
 
@@ -30,7 +33,9 @@ table {
   -webkit-border-vertical-spacing: 0;
 }
 
+
 /* normal end */
+
 
 /* global start */
 
@@ -44,7 +49,9 @@ body {
   font-weight: normal;
 }
 
+
 /* global end */
+
 
 /* banner start */
 
@@ -53,7 +60,9 @@ body {
   vertical-align: middle;
 }
 
+
 /* banner end */
+
 
 /* promotion-types start */
 
@@ -101,7 +110,9 @@ body {
   top: -40px;
 }
 
+
 /* promotion-types end */
+
 
 /* promotion-title start */
 
@@ -116,7 +127,9 @@ body {
   margin-bottom: 20px;
 }
 
+
 /* promotion-title end */
+
 
 /* table-promotion start */
 
@@ -221,7 +234,9 @@ body {
   margin: 32px auto;
 }
 
+
 /* table-promotion end */
+
 
 /* promotion-regulation start */
 
@@ -238,16 +253,19 @@ body {
   top: -24px;
   left: 390px;
   background: #18140b;
-}  
+}
 
 .promotion-regulation ul li {
   line-height: 30px;
   font-size: 14px;
 }
+
+
 /* promotion-regulation end */
 
 
 /* promotion-coupon start */
+
 .promotion-coupons.coupons-live {
   width: 1000px;
   margin: 50px auto 0;
@@ -264,7 +282,7 @@ body {
 .promotion-coupons.coupons-live .coupon img {
   width: 100%;
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
 }
 
@@ -314,14 +332,12 @@ body {
   margin-top: 12px;
 }
 
-.promotion-coupons.coupons-live .coupon .condition { 
+.promotion-coupons.coupons-live .coupon .condition {
   margin-top: 24px;
   margin-left: 20px;
   text-align: left;
   line-height: 20px;
 }
-
-
 
 .promotion-coupons.coupons-vod {
   width: 1000px;
@@ -393,18 +409,20 @@ body {
   text-align: left;
 }
 
-.promotion-coupons.coupons-vod .coupon .ticket h6{ 
+.promotion-coupons.coupons-vod .coupon .ticket h6 {
   font-size: 12px;
   color: #6a4914;
   margin-top: 2px;
 }
 
-.promotion-coupons.coupons-vod .coupon .ticket h6 .num{ 
+.promotion-coupons.coupons-vod .coupon .ticket h6 .num {
   font-size: 24px;
 }
 
-.promotion-coupons.coupons-vod .coupon .ticket .condition{ 
+.promotion-coupons.coupons-vod .coupon .ticket .condition {
   font-size: 12px;
   margin-top: 6px;
 }
+
+
 /* promotion-coupon end */
