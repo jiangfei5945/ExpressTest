@@ -1,0 +1,410 @@
+/* common start */
+
+.clearfix::after {
+  display: block;
+  content: " ";
+  visibility: hidden;
+  clear: both;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #dab557;
+  color: #6a4914;
+  font-size: 16px;
+  border-radius: 18px;
+  width: auto;
+  line-height: 1;
+}
+
+.error {
+  color: #ff4e2b;
+}
+/* common end */
+
+/* normal start */
+
+table {
+  -webkit-border-horizontal-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
+}
+
+/* normal end */
+
+/* global start */
+
+body {
+  background: #18140b;
+  color: #ffffff;
+  padding-bottom: 66px;
+}
+
+* {
+  font-weight: normal;
+}
+
+/* global end */
+
+/* banner start */
+
+.banner img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+/* banner end */
+
+/* promotion-types start */
+
+.promotion-types {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.promotion-types a {
+  display: block;
+  float: left;
+  padding: 3px;
+  background: #3c3a30;
+}
+
+.promotion-types a:hover {
+  background: #c99137;
+}
+
+.promotion-types a .intro {
+  float: left;
+  width: 208px;
+  padding-top: 36px;
+  padding-left: 36px;
+}
+
+.promotion-types a .intro h5 {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #ffffff;
+}
+
+.promotion-types a .example {
+  float: left;
+  height: 74px;
+  width: 204px;
+  border: 20px solid;
+  border-color: #3c3a30 #2d2b23;
+  background: #0a0904;
+  text-align: center;
+}
+
+.promotion-types a.promotion-coupon .example img {
+  position: relative;
+  top: -40px;
+}
+
+/* promotion-types end */
+
+/* promotion-title start */
+
+.promotion-title {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 18px;
+}
+
+.promotion-title img {
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+/* promotion-title end */
+
+/* table-promotion start */
+
+.table-promotion {
+  margin: 40px auto;
+  border: 1px solid #c89137;
+}
+
+.table-promotion thead th {
+  height: 50px;
+  border-bottom: 1px solid #c89137;
+  padding: 0;
+  background: #2c2413;
+}
+
+.table-promotion tbody td {
+  height: 100px;
+  border-bottom: 1px solid #c89137;
+  border-right: 1px solid #c89137;
+  padding: 0;
+}
+
+.table-promotion tbody td.package-name {
+  width: 170px;
+}
+
+.table-promotion tbody td.package-name h5 {
+  color: #c89137;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.table-promotion tbody td.package-name h6 {
+  font-size: 12px;
+  text-align: center;
+}
+
+.table-promotion tbody td.package-type {
+  width: 210px;
+  line-height: 1.6;
+  padding-left: 22px;
+}
+
+.table-promotion tbody td.prize {
+  width: 310px;
+  line-height: 1.6;
+  padding-left: 22px;
+  position: relative;
+}
+
+.table-promotion tbody td.price {
+  width: 110px;
+  line-height: 1.6;
+  font-size: 12px;
+  text-align: center;
+}
+
+.table-promotion tbody td.package-type h5,
+.table-promotion tbody td.prize h5 {
+  font-size: 14px;
+  text-align: left;
+}
+
+.table-promotion tbody td.package-type h6,
+.table-promotion tbody td.prize h6 {
+  font-size: 12px;
+  text-align: left;
+}
+
+.table-promotion tbody td.prize img.prize-phone {
+  position: absolute;
+  top: 20px;
+  right: 65px;
+}
+
+.table-promotion tbody td.prize img.prize-tv {
+  position: absolute;
+  top: 20px;
+  right: 38px;
+}
+
+.table-promotion tbody td.contact {
+  width: 200px;
+  text-align: center;
+}
+
+.table-promotion tbody td.contact h6 {
+  font-size: 12px;
+  margin-left: 40px;
+  width: 150px;
+  text-align: left;
+}
+
+.table-promotion tbody td.contact h5 {
+  font-size: 16px;
+  margin: 14px 0 36px 40px;
+  text-align: left;
+}
+
+.table-promotion tbody td.contact .btn {
+  margin: 32px auto;
+}
+
+/* table-promotion end */
+
+/* promotion-regulation start */
+
+.promotion-regulation {
+  border: 1px solid #c89137;
+  padding: 40px;
+  width: 1000px;
+  margin: 90px auto 0;
+  position: relative;
+}
+
+.promotion-regulation img {
+  position: absolute;
+  top: -24px;
+  left: 390px;
+  background: #18140b;
+}  
+
+.promotion-regulation ul li {
+  line-height: 30px;
+  font-size: 14px;
+}
+/* promotion-regulation end */
+
+
+/* promotion-coupon start */
+.promotion-coupons.coupons-live {
+  width: 1000px;
+  margin: 50px auto 0;
+}
+
+.promotion-coupons.coupons-live .coupon {
+  height: 340px;
+  width: 240px;
+  position: relative;
+  text-align: center;
+  float: left;
+}
+
+.promotion-coupons.coupons-live .coupon img {
+  width: 100%;
+  position: absolute;
+  top:0;
+  left: 0;
+}
+
+.promotion-coupons.coupons-live .coupon .discount-num {
+  position: absolute;
+  top: 4px;
+  right: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.promotion-coupons.coupons-live .coupon .content {
+  position: relative;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.promotion-coupons.coupons-live .coupon h4 {
+  font-size: 16px;
+  color: #c89137;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.promotion-coupons.coupons-live .coupon .discount {
+  margin-top: 12px;
+}
+
+.promotion-coupons.coupons-live .coupon .discount .error {
+  font-size: 24px;
+}
+
+.promotion-coupons.coupons-live .coupon .original {
+  text-decoration: line-through;
+  color: #666666;
+}
+
+.promotion-coupons.coupons-live .coupon ul {
+  text-align: left;
+  margin-top: 12px;
+  margin-left: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.promotion-coupons.coupons-live .coupon .btn {
+  margin-top: 12px;
+}
+
+.promotion-coupons.coupons-live .coupon .condition { 
+  margin-top: 24px;
+  margin-left: 20px;
+  text-align: left;
+  line-height: 20px;
+}
+
+
+
+.promotion-coupons.coupons-vod {
+  width: 1000px;
+  margin: 50px auto 0;
+}
+
+.promotion-coupons.coupons-vod .coupon {
+  height: 285px;
+  width: 230px;
+  text-align: center;
+  float: left;
+  border: 1px solid #c89137;
+  position: relative;
+}
+
+.promotion-coupons.coupons-vod .coupon:nth-child(-n+3) {
+  margin-right: 10px;
+}
+
+.promotion-coupons.coupons-vod .coupon img.discount-tip {
+  position: absolute;
+  top: -10px;
+  right: -20px;
+}
+
+.promotion-coupons.coupons-vod .coupon .discount-num {
+  position: absolute;
+  top: -6px;
+  right: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.promotion-coupons.coupons-vod .coupon h4 {
+  font-size: 16px;
+  color: #c89137;
+  font-weight: bold;
+  margin-top: 24px;
+}
+
+.promotion-coupons.coupons-vod .coupon .discount {
+  margin-top: 12px;
+}
+
+.promotion-coupons.coupons-vod .coupon .discount .error {
+  font-size: 24px;
+}
+
+.promotion-coupons.coupons-vod .coupon .original {
+  text-decoration: line-through;
+  color: #666666;
+}
+
+.promotion-coupons.coupons-vod .coupon ul {
+  text-align: left;
+  margin-top: 12px;
+  margin-left: 20px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.promotion-coupons.coupons-vod .coupon .ticket {
+  display: inline-block;
+  width: 200px;
+  height: 80px;
+  margin-top: 12px;
+  background: url('/images/coupon-vod.png') center/cover no-repeat;
+  padding-left: 12px;
+  text-align: left;
+}
+
+.promotion-coupons.coupons-vod .coupon .ticket h6{ 
+  font-size: 12px;
+  color: #6a4914;
+  margin-top: 2px;
+}
+
+.promotion-coupons.coupons-vod .coupon .ticket h6 .num{ 
+  font-size: 24px;
+}
+
+.promotion-coupons.coupons-vod .coupon .ticket .condition{ 
+  font-size: 12px;
+  margin-top: 6px;
+}
+/* promotion-coupon end */
