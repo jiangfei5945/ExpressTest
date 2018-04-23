@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TV中控</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            font-weight: normal;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #091d4b;
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            font-size: 14px;
+            padding: 6px 32px;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 20px;
+        }
+
+        .radio {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #fff;
+            display: inline-block;
+            position: relative;
+            top: 3px;
+        }
+
+        .radio img {
+            display: none;
+        }
+
+        .radio.selected img {
+            display: block;
+            width: 80px;
+            position: absolute;
+            top: -32px;
+            left: -32px;
+        }
+
+        .container {
+            display: flex;
+            width: 320px;
+            margin: 0 auto;
+            flex-direction: row;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            width: 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .icon .circle {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: 0.8;
+        }
+
+        .icon .circle img { 
+            height: 50px;
+            margin-top: 25px;
+        }
+
+        .icon .circle h1 { 
+            line-height: 100px;
+            margin: 0;
+        }
+
+        .icon .ellipse {
+            height: 28px;
+            width: 100px;
+            border-radius: 50px / 14px;
+            background: #fff;
+            opacity: 0.3;
+            position: absolute;
+            top: 86px;
+        }
+
+        .icon span {
+            font-size: 10px;
+            line-height: 50px;
+        }
+
+        .container.icon-left .operation {
+            flex: 1;
+            margin-left: 30px;
+            padding-top: 36px;
+        }
+
+        .container.icon-right .operation {
+            flex: 1;
+            margin-right: 30px;
+            padding-top: 36px;
+        }
+
+        .operation label {
+            font-size: 14px;
+        }
+
+        .operation input {
+            font-size: 10px;
+            padding: 6px 8px;
+            background: #fff;
+            border: none;
+            width: 120px;
+            color: #fff;
+        }
+
+        .operation .btn {
+            margin-top: 28px;
+        }
+
+        .operation .radio-text {
+            font-size: 10px;
+        }
+
+        .container.volume .btn {
+            border: 1px solid #20c1d5;
+        }
+
+        .container.volume .icon .circle {
+            background: #20c1d5;
+        }
+
+        .container.volume .icon .ellipse {
+            background: #20c1d5;
+        }
+
+        .container.volume .operation input {
+            background: #0f476e;
+        }
+
+        .container.image .btn {
+            border: 1px solid #8123b5;
+        }
+
+        .container.image .icon .circle {
+            background: #8123b5;
+        }
+
+        .container.image .icon .ellipse {
+            background: #8123b5;
+        }
+
+        .container.image .operation .radio {
+            background-color: #8123b5;
+        }
+
+        .container.search .btn {
+            border: 1px solid #ae9432;
+        }
+
+        .container.search .icon .circle {
+            background: #ae9432;
+        }
+
+        .container.search .icon .ellipse {
+            background: #ae9432;
+        }
+
+        .container.search .operation input {
+            background: #394044;
+        }
+
+        .container.evoke .btn {
+            border: 1px solid #21cf32;
+        }
+
+        .container.evoke .icon .circle {
+            background: #21cf32;
+        }
+
+        .container.evoke .icon .ellipse {
+            background: #21cf32;
+        }
+
+        .container.evoke .operation input {
+            background: #0f4945;
+        }
+
+        .container.monitor .btn {
+            border: 1px solid #6d25d8;
+        }
+
+        .container.monitor .icon .circle {
+            background: #6d25d8;
+        }
+
+        .container.monitor .icon .ellipse {
+            background: #6d25d8;
+        }
+
+        .container.monitor .operation .radio {
+            background-color: #6d25d8;
+        }
+
+        .container.push .btn {
+            border: 1px solid #bd6f30;
+        }
+
+        .container.push .icon .circle {
+            background: #bd6f30;
+        }
+
+        .container.push .icon .ellipse {
+            background: #bd6f30;
+        }
+
+        .container.push .operation input {
+            background: #393344;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container icon-left volume">
+        <div class="icon">
+            <div class="circle">
+                <img src="http://i2.letvimg.com//lc02_lecloud//201804//20//11//19//volume.png" />
+            </div>
+            <div class="ellipse"></div>
+            <span>音量调节</span>
+        </div>
+        <div class="operation">
+            <div>
+                <label>音量调至</label>
+                <input type="number" placeholder="例：50" />
+            </div>
+            <a class="btn" id="btnVolume">提交</a>
+        </div>
+    </div>
+    <div class="container icon-right image">
+        <div class="operation">
+            <div>
+                <label>图像切换至</label>
+                <div class="radio" data-image="0">
+                    <img src="http://i1.letvimg.com//lc07_lecloud//201804//20//11//40//pointer.png" />
+                </div>
+                <span class="radio-text">正常</span>
+                <div class="radio" data-image="1">
+                    <img src="http://i1.letvimg.com//lc07_lecloud//201804//20//11//40//pointer.png" />
+                </div>
+                <span class="radio-text">护眼</span>
+            </div>
+            <a class="btn" id="btnImage">提交</a>
+        </div>
+        <div class="icon">
+            <div class="circle">
+                <img src="http://i2.letvimg.com//lc02_lecloud//201804//20//11//19//image.png" />
+            </div>
+            <div class="ellipse"></div>
+            <span>图像模式</span>
+        </div>
+    </div>
+    <div class="container icon-left search">
+        <div class="icon">
+            <div class="circle">
+                <img src="http://i3.letvimg.com//lc02_lecloud//201804//20//11//18//search.png" />
+            </div>
+            <div class="ellipse"></div>
+            <span>视频搜索</span>
+        </div>
+        <div class="operation">
+            <div>
+                <label>搜索语音</label>
+                <input type="text" placeholder="例：甄嬛传" />
+            </div>
+            <a class="btn" id="btnSearch">搜索</a>
+        </div>
+    </div>
+    <div class="container icon-right evoke">
+        <div class="operation">
+            <div>
+                <label>唤起文本</label>
+                <input type="text" placeholder="例：乐视体育" />
+            </div>
+            <a class="btn" id="btnEvoke">唤起</a>
+        </div>
+        <div class="icon">
+            <div class="circle">
+                <h1>APP</h1>
+            </div>
+            <div class="ellipse"></div>
+            <span>APP唤起</span>
+        </div>
+    </div>
+    <div class="container icon-left monitor">
+        <div class="icon">
+            <div class="circle">
+                <img src="http://i2.letvimg.com//lc03_lecloud//201804//20//11//17//monitor.png" />
+            </div>
+            <div class="ellipse"></div>
+            <span>监控视频播放</span>
+        </div>
+        <div class="operation">
+            <div>
+                <label>监控视频</label>
+                <div class="radio" data-image="0">
+                    <img src="http://i1.letvimg.com//lc07_lecloud//201804//20//11//40//pointer.png" />
+                </div>
+                <span class="radio-text">播放</span>
+                <div class="radio" data-image="1">
+                    <img src="http://i1.letvimg.com//lc07_lecloud//201804//20//11//40//pointer.png" />
+                </div>
+                <span class="radio-text">暂停</span>
+            </div>
+            <a class="btn" id="btnMonitor">执行</a>
+        </div>
+    </div>
+    <div class="container icon-right push">
+        <div class="operation">
+            <div>
+                <label>推送文本</label>
+                <input type="text" placeholder="例：水已烧开" />
+            </div>
+            <a class="btn" id="btnVolume">发送</a>
+        </div>
+        <div class="icon">
+            <div class="circle">
+                <img src="http://i1.letvimg.com//lc03_lecloud//201804//20//11//16//push.png" />
+            </div>
+            <div class="ellipse"></div>
+            <span>消息推送</span>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://js.letvcdn.com/lc02_lecloud/201511/25/09/39/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    <script type="text/javascript">
+
+        function executeCmd(cmdName, cmdValue) {
+            var timeStamp = (new Date()).getTime(),
+                uid = '823',
+                token = 'd258e17240a84da4e3425018daea2ccf',
+                sign = md5(uid + token + timeStamp);
+
+            $.ajax({
+                url: 'https://api.qinglianyun.com/open/v2/set/api',
+                data: {
+                    mac: 'B0:1B:D2:01:51:2C',
+                    uid: uid,
+                    sign: sign,
+                    key: cmdName,
+                    value: cmdValue,
+                    tt: timeStamp
+                },
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.code == 0) {
+                        window.alert('操作成功！');
+                    } else {
+                        window.alert(data.msg);
+                    }
+                }
+            });
+        }
+        //radio
+        $('.radio').on('click', function (e) {
+            $(e.target).parent().find('.radio').removeClass('selected');
+            $(e.target).addClass('selected');
+        });
+        $('#btnVolume').on('click', function (e) {
+            var value = $('.volume input').val();
+            executeCmd('VolValue', value);
+        });
+        $('#btnImage').on('click', function (e) {
+            var value = $('.image .radio.selected').data('image');
+            executeCmd('PicMode', value);
+        });
+        $('#btnSearch').on('click', function (e) {
+            var value = $('.search input').val();
+            executeCmd('VodSerch', value);
+        });
+        $('#btnMonitor').on('click', function (e) {
+            var value = $('.monitor .radio.selected').data('image');
+            executeCmd('PinP', 'rtmp://r.gslb.lecloud.com/live/2017112030000001h13');
+        });
+        $('#btnPush').on('click', function (e) {
+            var value = $('.push input').val();
+            executeCmd('MsgPush', value);
+        });
+    </script>
+</body>
+
+</html>
