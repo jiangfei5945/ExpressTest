@@ -2,3 +2,6 @@ node_modules/
 bower_components/
 .idea/
 public/pages/cdn-upload.html
+.DS_Store
+public/.DS_Store
+public/images/.DS_Store

@@ -1,0 +1,397 @@
+/* common start */
+
+.clearfix::after {
+  display: block;
+  content: " ";
+  visibility: hidden;
+  clear: both;
+}
+
+/* common end */
+
+
+/* normal start */
+
+table {
+  -webkit-border-horizontal-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
+}
+
+
+/* normal end */
+
+
+/* global start */
+
+body {
+  font-family: "Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif,'Hiragino Sans GB','\5FAE\8F6F\96C5\9ED';
+  background: #18140b;
+  color: #ffffff;
+}
+
+* {
+  font-weight: normal;
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* global end */
+
+
+/* header start */
+
+@media only screen and (max-width: 769px) {
+  .lecloud-header.no-m {
+    display: none;
+  }
+}
+
+
+/* header end */
+
+
+/* header start */
+@media only screen and (min-width: 769px) {
+  .banner .pc {
+    width: 100%;
+  }
+
+  .banner .m {
+    display: none;
+  }
+
+  .top-board {
+    text-align: center;
+    background: url('http://i2.letvimg.com//lc05_lecloud//201811//06//16//53//top-board-bg.png') center/ auto 70px repeat-x;
+    margin-top: -16px;
+  }
+
+  .top-board img {
+    width: 1000px;
+  }
+
+  .panel {
+    height: 620px;
+    width: 1000px;
+    padding-top: 72px;
+    margin: 58px auto 0;
+    color: #fff;
+    position: relative;
+    background-color: #1b0c53;
+    background-image: url('http://i0.letvimg.com//lc05_lecloud//201811//06//16//51//panel-header.png'), url('http://i3.letvimg.com//lc05_lecloud//201811//06//16//51//panel-footer.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: top center, bottom center;
+  }
+
+  .panel .pothook {
+    position: absolute;
+    top: -72px;
+  }
+
+  .panel .pothook.left {
+    left: 80px;
+  }
+
+  .panel .pothook.right {
+    right: 80px;
+  }
+
+  .panel .pothook::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: -20px;
+    height: 20px;
+    width: 20px;
+    background: #111;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .panel .pothook::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    bottom: -20px;
+    height: 20px;
+    width: 20px;
+    background: #111;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .panel .pothook .rope {
+    border-left: 1px solid #fff;
+    height: 80px;
+  }
+
+  .panel h3 {
+    margin-left: 56px;
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .panel .gifts {
+    display: flex;
+    width: 100%;
+  }
+
+  .panel .gifts li {
+    width: 214px;
+    margin-left: 28px;
+  }
+
+  .panel .gifts li h4 {
+    font-size: 24px;
+    margin-top: 80px;
+    text-align: center;
+  }
+
+  .panel .gifts li .spliter-horizontal {
+    border-bottom: 1px solid #463a73;
+    width: 100%;
+    margin: 16px 0;
+  }
+
+  .panel .gifts li .demo {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .panel .gifts li p {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .panel .gifts li p em {
+    color: #ffd539;
+  }
+
+  .panel .clauses {
+    padding: 0 50px 0 60px;
+    margin-top: 68px;
+  }
+
+  .panel .clauses li {
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .panel .clauses li::before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    background: #ffd539;
+    border-radius: 50%;
+    top: 6px;
+    left: -12px;
+  }
+
+  .panel .clauses li h6 {
+    color: #ffd539;
+    font-size: 18px;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .panel .clauses li span {
+    color: #fff;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .panel .contact {
+    position: absolute;
+    left: 130px;
+    bottom: 16px;
+    font-size: 24px;
+  }
+
+  .panel .law {
+    position: absolute;
+    left: 60px;
+    bottom: 16px;
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+
+  .banner .pc {
+    display: none;
+  }
+
+  .banner .m {
+    width: 100%;
+  }
+
+  .top-board {
+    height: 72px;
+    background: url('http://i3.letvimg.com//lc05_lecloud//201811//06//16//50//m-top-board.png') center/ 100% 100% no-repeat;
+  }
+
+  .top-board img {
+    display: none;
+  }
+
+  .panel {
+    height: 1200px;
+    padding-top: 52px;
+    margin: 66px auto 0;
+    color: #fff;
+    position: relative;
+    background-color: #1b0c53;
+    background-image: url('http://i0.letvimg.com//lc05_lecloud//201811//06//16//51//panel-header.png'), url('http://i3.letvimg.com//lc05_lecloud//201811//06//16//51//panel-footer.png');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: top center, bottom center;
+  }
+
+  .panel .pothook {
+    position: absolute;
+    top: -76px;
+  }
+
+  .panel .pothook.left {
+    left: 50px;
+  }
+
+  .panel .pothook.right {
+    right: 50px;
+  }
+
+  .panel .pothook::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: -16px;
+    height: 16px;
+    width: 16px;
+    background: #111;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .panel .pothook::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    bottom: -16px;
+    height: 16px;
+    width: 16px;
+    background: #111;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .panel .pothook .rope {
+    border-left: 1px solid #fff;
+    height: 80px;
+  }
+
+  .panel h3 {
+    margin-left: 32px;
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .panel .gifts {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 30px;
+    margin-top: 72px;
+  }
+
+  .panel .gifts li {
+    width: 320px;
+    margin-bottom: 60px;
+  }
+
+  .panel .gifts li h4 {
+    font-size: 36px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .panel .gifts li .spliter-horizontal {
+    border-bottom: 1px solid #463a73;
+    width: 100%;
+    margin: 16px 0;
+  }
+
+  .panel .gifts li .demo {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .panel .gifts li p {
+    font-size: 20px;
+    line-height: 36px;
+    letter-spacing: 1px;
+  }
+
+  .panel .gifts li p em {
+    color: #ffd539;
+  }
+
+  .panel .clauses {
+    padding: 0 50px 0 60px;
+    margin-top: 68px;
+  }
+
+  .panel .clauses li {
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .panel .clauses li::before {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    background: #ffd539;
+    border-radius: 50%;
+    top: 6px;
+    left: -12px;
+  }
+
+  .panel .clauses li h6 {
+    color: #ffd539;
+    font-size: 24px;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .panel .clauses li span {
+    color: #fff;
+    font-size: 20px;
+    line-height: 36px;
+  }
+
+  .panel .contact {
+    position: absolute;
+    left: 65px;
+    bottom: 12px;
+    font-size: 20px;
+  }
+
+  .panel .law {
+    position: absolute;
+    left: 60px;
+    bottom: 360px;
+    font-size: 20px;
+    color: #ffd539;
+  }
+}
+
+/* header end */
