@@ -59,4 +59,10 @@ router.get('/employees', function (req, res, next) {
 router.post('/employee/add', function (req, res, next) {
   res.send({ result: 1, data: req.body.employee });
 });
+
+//blockjs
+router.get('/blockjs', function (req, res, next) {
+  res.send({ result: 1, data: [{name:'test1'},{name:'test2'}] });
+});
+
 module.exports = router;
