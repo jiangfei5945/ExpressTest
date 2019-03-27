@@ -7,8 +7,8 @@
 </head>
 
 <body>
-    <!--<script type="text/javascript" src="/javascripts/promise-test.js"></script>-->
-    <script type="text/javascript" src="/javascripts/vendor/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/promise-test.js"></script>
+    <!-- <script type="text/javascript" src="/javascripts/vendor/jquery.js"></script> -->
     <script type="text/javascript">
         // var promise = $.get('/api/data1');
         // promise
@@ -34,21 +34,12 @@
         //     }).then(function (data) {
         //         console.log(data);
         //     });
-    var promise = (function () {
-        var defer = $.Deferred(); 
+    var promise = new MyPromise((resolve,reject)=>{
         setTimeout(function () { 
-            defer.resolve("1"); 
+            resolve('resolve-1'); 
         }, 2000); 
-        return defer.promise();
-    } ());
+    });
     promise.then(function (data) {
-        console.log(data);
-        var defer = $.Deferred(); 
-        setTimeout(function () { 
-            defer.resolve("2:"+data); 
-        }, 2000); 
-        return defer.promise();
-    }).then(function (data) {
         console.log(data);
     });
     </script>
