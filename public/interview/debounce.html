@@ -1,0 +1,26 @@
+<html>
+
+<head></head>
+
+<body>
+  <input type="text" id="inputTest" />
+</body>
+<script type="text/javascript">
+  function debounce(fn) {
+    let timer;
+    return function () {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, arguments);
+      }, 500);
+    };
+  }
+
+  function hello(e) {
+    console.log('******debounce', e.target.value, this);
+  }
+
+  document.querySelector('#inputTest').addEventListener('input', debounce(hello));
+</script>
+
+</html>

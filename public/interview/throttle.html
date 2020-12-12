@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <style>
+    .main {
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main"></div>
+</body>
+<script type="text/javascript">
+  let count = 0;
+  function throttle(fn) {
+    let canRun = true;
+    return function () {
+      if (!canRun) return;
+      canRun = false;
+      setTimeout(() => {
+        fn.apply(this, arguments);
+        canRun = true;
+      }, 500);
+    };
+  }
+
+  function size(e) {
+    console.log('******count', count++);
+    console.log('******throttle', e.target.innerWidth, e.target.innerHeight);
+  }
+
+  window.addEventListener('resize', throttle(size));
+</script>
+
+</html>

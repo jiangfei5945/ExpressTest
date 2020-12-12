@@ -1,0 +1,44 @@
+<html>
+
+<head></head>
+
+<body>
+  <input type="text" id="inputTest" />
+</body>
+<script type="text/javascript">
+  function deepClone(target, hash = new WeakMap()) {
+    let cloneObj;
+    const constrctor = target.constrctor;
+    switch (constrctor) {
+      case RegExp: cloneObj = new RegExp(target);
+        break;
+      case Date: cloneObj = new Date(target.getTime());
+        break;
+      default:
+        if (hash.get(target)) return hash.get(target);
+        cloneObj = new constrctor();
+        hash.set(target, cloneObj);
+
+    }
+    for (let key in target) {
+      let val = target[key];
+      cloneObj[key] = (typeof val === 'object' || typeof val === 'function') ?
+        deepClone(val, hash) : val;
+    }
+    return cloneObj;
+  }
+
+  const obj = {
+    arr: [111, 222],
+    obj: { key: '对象' },
+    a: () => { console.log('函数') },
+    date: new Date(),
+    reg: /正则/ig
+  };
+  obj.cd = obj;
+
+  // console.log(JSON.parse(JSON.stringify(obj)));
+  console.log(deepClone(obj));
+</script>
+
+</html>

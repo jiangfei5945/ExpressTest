@@ -6,86 +6,15 @@
     <title>sdk4.0Demo 点播</title>
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
     <style type="text/css">
-        body {
-            padding: 0;
-            margin: 0;
+        #videoPlayer {
+            width: 500px;
+            height: 400px;
         }
     </style>
 </head>
 
 <body>
-    <!-- 直播html代码-->
-    <!-- <div>
-        <video src="/video/test-video" controls="controls"></video>
-    </div> -->
-    <div id="player1"></div>
-    <!-- <script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/vod/bcloud.js"></script> -->
-    <!-- <script type="text/javascript" charset="utf-8" src="/javascripts/lecloud-vod.js"></script> -->
-    <script type="text/javascript" charset="utf-8" src="http://yuntv.letv.com/player/live/blive.js"></script>
-    <script>
-        window.call = function (type, data) {
-            console.log(type);
-            if (type == 'playerInit') {
-                var videoH = 580;
-                //$(".fluid-width-video-wrapper").height()
-                //$('#wrapper').height(videoH - 27);
-                //$('video').removeAttr('controls');
-                //$('#le-video').css('height', videoH);
-            }
-            if (type == 'videoError') {
-                var videoH = 525;
-                $('#le-video').height(videoH);
-                $('#wrapper').height(videoH - 30);
-                if ($checkStatus == 11) {
-                    var src = 'http://cdn.lezhibo.com/static/portal/images/v-background-none4-new.gif';
-                } else {
-                    var src = 'http://cdn.lezhibo.com/static/portal/images/v-background-none2.jpg';
-                }
-                var img = $('<img>').attr('src', src).css({ 'width': '100%', 'height': '100%' });
-                $('#le-video').empty().append(img);
-            }
-        }
-        // 小蜂财经  A201604010000051
-        var player = new CloudLivePlayer();
-        player.init({
-            activityId: "A201604010000051",
-            //callbackJs: "call",
-            type: 'h5',
-            skinnable: 1,
-            //controls: 0,
-            posterType: 1,
-            autoSize: 1,
-            auto_play: 1,
-            seekRange: ""
-        });
-
-        function getTriple(a) {
-            a.sort(function(x,y){
-                return x - y 
-            });
-        }
-    </script>
-    <!-- <script>
-        window.call = function (type, data) {
-            if (type == 'videoStop') {
-                console.log(type);
-            }
-        }
-        var playerConf1 = {
-            uu: "j5cgl4xeks",
-            vu: "514b1a1236",
-            type: "h5",
-            height: "300",
-            start:500,
-            //seekRange: "",
-            auto_play:1,
-            callbackJs: "call",
-        };
-
-        var player1 = new CloudVodPlayer();
-        player1.init(playerConf1, "player1");
-    </script> -->
-    
+    <video id="videoPlayer" controls="" src="https://www.runoob.com/try/demo_source/movie.ogg"></video>  
 </body>
 
 </html>

@@ -1,0 +1,33 @@
+<html>
+
+<head></head>
+
+<body>
+  <input type="text" id="inputTest" />
+</body>
+<script type="text/javascript">
+  var defer = new Promise((resove, reject) => {
+    setTimeout(() => {
+      resove('jftest1');
+    }, 0);
+  });
+  defer.then(data => {
+    console.log('data1');
+  });
+  var defer2 = defer.then(data=>{
+    console.log('data2');
+    return new Promise((resove, reject) => {
+      setTimeout(() => {
+        resove('jftest2');
+      }, 0);
+    });
+  });
+  defer2.then(data => {
+    console.log('data3');
+  });
+  defer.then(data => {
+    console.log('data4');
+  });
+</script>
+
+</html>

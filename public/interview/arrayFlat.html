@@ -1,0 +1,16 @@
+<html>
+
+<head></head>
+
+<body>
+  <input type="text" id="inputTest" />
+</body>
+<script type="text/javascript">
+  function flatArray(arr, deep) {
+    return deep > 0 ? arr.reduce((acc, item) => {
+      acc.concat(Array.isArray(acc) ? flatArray(item, deep - 1) : item)
+    }) : arr.slice();
+  }
+</script>
+
+</html>

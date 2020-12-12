@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <form action="server.cgi" method="post" enctype="multipart/form-data">
+        <input type="file" name="video" accept="video/*" capture="environment">
+        <input type="submit" value="Upload">
+      </form>
+    <script type="text/javascript">
+        // var p = navigator.mediaDevices.getUserMedia({audio:true,video:true});
+        // p.then(function(mediaStream){
+        //     var videoEl = document.getElementById('videoTest');
+        //     videoEl.src = window.URL.createObjectURL(mediaStream);
+        //     videoEl.onloadedmetadata = function (e){
+        //         //videoEl.play();
+        //     };
+        // });
+        // p.catch(function(err) { console.log(err.name); });
+    </script>
+</body>
+
+</html>

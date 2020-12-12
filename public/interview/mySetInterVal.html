@@ -1,0 +1,32 @@
+<html>
+
+<head></head>
+
+<body></body>
+<script type="text/javascript">
+  function mySetInterVal(fn, a, b) {
+    let timeCount = 0;
+    let timer;
+    const loop = () => {
+      timer = setTimeout(() => {
+        fn();
+        timeCount++;
+        loop();
+      }, a * timeCount + b);
+    };
+    loop();
+    return () => {
+      clearInterval(timer);
+    };
+  }
+
+  const clearTimer = mySetInterVal(
+    () => {
+      console.log('******time', new Date());
+    },
+    5,
+    200
+  );
+</script>
+
+</html>
