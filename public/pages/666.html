@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="http://yuntv.letv.com/jf/fav-icon.ico">
+  <title>乐视云1111</title>
+  <meta name="viewport" content="width=750, user-scalable=no">
+</head>
+
+<body>
+  <script>
+    function foo() {
+      console.log('*******foo',this);
+      bar();
+    }
+
+    function bar() {
+      console.log('*******bar',this);
+    }
+
+    var baz = {
+      name: 'jf',
+      foo: foo
+    }
+
+    baz.foo();
+  </script>
+</body>
+
+</html>
