@@ -7,27 +7,18 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="/javascripts/vendor/jquery.js"></script>
+    <!-- <script type="text/javascript" src="/javascripts/vendor/jquery.js"></script> -->
     <script type="text/javascript">
-        console.log(1);
-        setTimeout(function(){
-            console.log(2);
-        });
-        Promise.resolve().then(function(){
-            console.log(3);
-        });
-        setTimeout(function(){
-            console.log(4);
-        });
-        Promise.resolve().then(function(){
-            console.log(5);
-        });
-        setTimeout(function(){
-            console.log(6);
-        });
-        Promise.resolve().then(function(){
-            console.log(7);
-        });
+        async function  a(){
+            const res = await test()
+            debugger
+        }
+         async function test(){
+            const data = await Promise.resolve('b');
+            console.log(data);
+            return 'a'
+         }
+         a();
     </script>
 </body>
 
