@@ -1,0 +1,20 @@
+<html>
+
+<head></head>
+
+<body>
+<script type="text/javascript">
+  // https://github.com/sisterAn/JavaScript-Algorithms/issues/71
+  function myNew() {
+    const ctor = Array.prototype.shift.call(arguments);
+    const obj = Object.create(ctor.prototype);
+    const result = ctor.apply(obj,arguments);
+    return typeof result === 'object' ? result : obj
+  }
+  function Dog(name) {
+    this.name = name
+  }
+  console.log(myNew(Dog, 'dd'))
+</script>
+</body>
+</html>

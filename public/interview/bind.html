@@ -1,0 +1,20 @@
+<html>
+
+<head></head>
+
+<body>
+</body>
+<script type="text/javascript">
+  // https://juejin.cn/post/6844904056431837197
+  Function.prototype.mybind = function(){
+    var fun = this
+    var ctx = arguments[0]
+    var arg = Array.prototype.slice.apply(arguments,1)
+    return function() {
+      var arg1 = Array.prototype.slice.apply(arguments)
+      return fun.apply(ctx, arg.concat(arg1))
+    }
+  }
+</script>
+
+</html>
