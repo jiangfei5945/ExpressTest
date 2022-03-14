@@ -6,6 +6,60 @@
   <input type="text" id="inputTest" />
 </body>
 <script type="text/javascript">
+  // https://juejin.cn/post/6860037916622913550
+
+  // 定义三种状态
+  const PENDING = 'PENDING';      // 进行中
+  const FULFILLED = 'FULFILLED';  // 已成功
+  const REJECTED = 'REJECTED';    // 已失败
+  class myPromise {
+    constructor(exector) {
+      this.status = PENDING;
+      this.value = null;
+      this.reason = null;
+      this.fullfilledQueue = [];
+      this.rejectedQueue = [];
+
+      const resolved = (val) => {
+        if(this.status === PENDING) {
+          this.value = val
+          this.status = FULFILLED
+          this.fullfilledQueue.forEach(fn=>fn(val))
+        }
+      }
+
+      const rejected = () => {
+        if(this.status === PENDING) {
+          this.reason = val
+          this.status = REJECTED
+          this.fullfilledQueue.forEach(fn=>fn(val))
+        }
+      }
+
+      try{
+        exector(this.resolved, this.rejected)
+      } catch(e) {
+        this.rejected(e)
+      }
+    }
+
+    then(onResolve, onReject) {
+      let that = this
+      return new Promise((resolve, reject)=>{
+        if(that.status === PENDING) {
+          that.fullfilledQueue.push((val)=>{
+            const result = onResolve(val)
+            return result instanceof Promise ? result.then(resolve, reject) : resolve(result);
+          })
+          that.rejectedQueue.push((val)=>{
+            const result = onReject(val)
+            return result instanceof Promise ? result.then(resolve, reject) : reject(result);
+          })
+        }
+      })
+    }
+  }
+
   var defer = new Promise((resove, reject) => {
     setTimeout(() => {
       resove('jftest1');
