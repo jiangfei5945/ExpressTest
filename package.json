@@ -4,7 +4,8 @@
   "private": true,
   "author": "jiangfei5945",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev:watch": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
