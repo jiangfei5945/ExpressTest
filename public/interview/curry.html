@@ -12,6 +12,8 @@
   <div class="main"></div>
 </body>
 <script type="text/javascript">
+  // 1.如果传入的 args 长度与原始函数所定义的（func.length）相同或者更长，那么只需要使用 func.apply 将调用传递给它即可。
+  // 2.否则，获取一个部分应用函数：我们目前还没调用 func。取而代之的是，返回另一个包装器 pass，它将重新应用 curried，将之前传入的参数与新的参数一起传入。
   function curry(func) {
 
     return function curried(...args) {
